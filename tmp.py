@@ -1,20 +1,28 @@
 from util import demo
 from termcolor import cprint
 
+def print_2d_array(array):
+    for row in array:
+        for element in row:
+            print("{3:}".format(element), end=" ")  # Adjust the width as needed
+        print()
+
+
 
 def ex1():
-  row = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-  print('|'.join(row))
+  # row = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+  # print('|'.join(row))
 
   arr = [f'{i}' for i in range(9)]
   print(arr)
 
-  # cprint('Hello World!', 'red','on_white')
-
+  arr2 = [[f'{i+3*j}' for i in range(3)] for j in range(3)]
 
   for i in range(0, 9, 3):
     print(i, end=' ')
+    print()
 
+  print_2d_array(arr2)
 
 demo(ex1, "Array")
 
@@ -33,3 +41,4 @@ def board():
 
 
 demo(board, "Board")
+
