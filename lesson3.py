@@ -21,7 +21,7 @@ def printLine(letter , num):
 
 
 print(" X | O |")
-printLine("•" , 15)
+printLine("-" , 11)
 print("   | X |")
-printLine("-" , 20)
+printLine("-" , 11)
 print("   |   |")

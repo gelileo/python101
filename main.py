@@ -17,7 +17,6 @@ def timeTable2(num):
     for j in range(1 , i):
       print(f"{i}x{j}={i*j}" , end=', ')
     print(f"{i}x{i}={i*i}")
-timeTable2(8)
-
-
+    
+# timeTable2(8)
 
