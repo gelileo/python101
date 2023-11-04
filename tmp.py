@@ -1,10 +1,10 @@
-from util import demo
+from utils.util import demo
 from termcolor import cprint
 
 def print_2d_array(array):
     for row in array:
         for element in row:
-            print("{3:}".format(element), end=" ")  # Adjust the width as needed
+            print("{:3}".format(element), end=" ")  # Adjust the width as needed
         print()
 
 
@@ -18,10 +18,17 @@ def ex1():
 
   arr2 = [[f'{i+3*j}' for i in range(3)] for j in range(3)]
 
-  for i in range(0, 9, 3):
-    print(i, end=' ')
-    print()
+  # for i in range(0, 9, 3):
+  #   print(i, end=' ')
+  #   print()
+  # print(arr2)
+ 
+  print(f'{arr2}')
+    
+  for row in arr2:
+    print(row)
 
+  print()
   print_2d_array(arr2)
 
 demo(ex1, "Array")
