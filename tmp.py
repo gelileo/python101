@@ -56,7 +56,9 @@ def board2d():
 
   i = 1
   for row in board:
-    print("{:>3}".format("|").join(row))
+    # print("{:>3}".format("|").join(row))
+    # items = list(map(lambda x: "{:^3}".format(x), row))
+    print("|".join(list(map(lambda x: "{:^3}".format(x), row)) ))
     print(("-" if i < 3 else "") * 11)
     i += 1
 
@@ -69,7 +71,8 @@ def board2dClr():
 
   i = 1
   for row in board:
-    line = "{:>3}".format("|").join(row)
+    # line = "{:>3}".format("|").join(row)
+    line = "|".join(list(map(lambda x: "{:^3}".format(x), row)) )
     cprint(line, 'red', 'on_white')
     line = ("-" if i < 3 else "") * 11
     cprint(line, 'black', 'on_white')
