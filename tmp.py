@@ -62,3 +62,18 @@ def board2d():
 
 
 demo(board2d, "Board with 2D Array")
+
+
+def board2dClr():
+  board = [[' ' for _ in range(3)] for _ in range(3)]
+
+  i = 1
+  for row in board:
+    line = "{:>3}".format("|").join(row)
+    cprint(line, 'red', 'on_white')
+    line = ("-" if i < 3 else "") * 11
+    cprint(line, 'black', 'on_white')
+    i += 1
+
+
+demo(board2dClr, "Color Board with 2D Array")
