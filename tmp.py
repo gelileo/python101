@@ -1,12 +1,12 @@
 from utils.util import demo
 from termcolor import cprint
 
-def print_2d_array(array):
-    for row in array:
-        for element in row:
-            print("{:3}".format(element), end=" ")  # Adjust the width as needed
-        print()
 
+def print_2d_array(array):
+  for row in array:
+    for element in row:
+      print("{:3}".format(element), end=" ")  # Adjust the width as needed
+    print()
 
 
 def ex1():
@@ -22,21 +22,22 @@ def ex1():
   #   print(i, end=' ')
   #   print()
   # print(arr2)
- 
+
   print(f'{arr2}')
-    
+
   for row in arr2:
     print(row)
 
   print()
   print_2d_array(arr2)
 
+
 demo(ex1, "Array")
 
 
 def board():
   board = [' ' for _ in range(9)]
- 
+
   line = f" X | {board[1]} | {board[2]} "
   cprint(line, 'red', 'on_white', attrs=["bold"])
   cprint("---+---+---", 'black', 'on_white')
@@ -49,3 +50,15 @@ def board():
 
 demo(board, "Board")
 
+
+def board2d():
+  board = [[' ' for _ in range(3)] for _ in range(3)]
+
+  i = 1
+  for row in board:
+    print("{:>3}".format("|").join(row))
+    print(("-" if i < 3 else "") * 11)
+    i += 1
+
+
+demo(board2d, "Board with 2D Array")
