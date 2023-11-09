@@ -80,3 +80,22 @@ def board2dClr():
 
 
 demo(board2dClr, "Color Board with 2D Array")
+
+
+board = [' ' for _ in range(9)]
+
+# Function to display the Tic-Tac-Toe board
+def display_board(board):
+    print(f"{board[0]} | {board[1]} | {board[2]}")
+    print("-"*9)
+    print(f"{board[3]} | {board[4]} | {board[5]}")
+    print("-"*9)
+    print(f"{board[6]} | {board[7]} | {board[8]}")
+    print()
+board[0] = 'X'
+board[2] = 'O'
+board[5] = 'X'
+board[7] = 'X'
+board[8] = 'O'
+
+display_board(board)
