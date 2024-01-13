@@ -22,23 +22,20 @@
 # ----------
 #  X | O | X
 
-board = [["-" for _ in range(3)] for _ in range(3)]
-
-
-def printBoard(board):
-  for row in board:
-    print(f"{row[0]} | {row[1]} | {row[2]}")
-    print("-" * 9)
+#make board
+board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"]
 
 currentPlayer = "X"
 winner = None
 gameRunning = True
 
-def rowForMove(move):
-  return (move - 1) // 3
 
-def colForMove(move):
-  return (move - 1) % 3
+def printBoard(board):
+  print(board[0] + ' | ' + board[1] + ' | ' + board[2])
+  print('-' * 9)
+  print(board[3] + ' | ' + board[4] + ' | ' + board[5])
+  print('-' * 9)
+  print(board[6] + ' | ' + board[7] + ' | ' + board[8])
 
 
 #take player input
@@ -46,9 +43,8 @@ def playerInput(board):
   while True:
     try:
       inp = int(input(f"Player {currentPlayer}, Enter a number 1-9: "))
-
-      if inp >= 1 and inp <= 9 and board[rowForMove(inp)][colForMove(inp)] == "-":
-        board[rowForMove(inp)][colForMove(inp)] = currentPlayer
+      if inp >= 1 and inp <= 9 and board[inp - 1] == "-":
+        board[inp - 1] = currentPlayer
         break
       else:
         print("Invalid Move, Try again")
@@ -60,32 +56,34 @@ def playerInput(board):
 #HORiZONTAL
 def check_H(board):
   global winner
-  # if board[0] == board[1] == board[2] and board[1] != "-":
-  #   winner = board[0]
-  #   # print("0 1 2")
-  #   return True
-  # elif board[3] == board[4] == board[5] and board[3] != "-":
-  #   winner = board[3]
-  #   # print("0 1 2")
-  #   return True
-  # elif board[6] == board[7] == board[8] and board[6] != "-":
-  #   winner = board[6]
-  #   # print("6 7 8")
-  #   return True
+  if board[0] == board[1] == board[2] and board[1] != "-":
+    winner = board[0]
+    # print("0 1 2")
+    return True
+  elif board[3] == board[4] == board[5] and board[3] != "-":
+    winner = board[3]
+    # print("0 1 2")
+    return True
+  elif board[6] == board[7] == board[8] and board[6] != "-":
+    winner = board[6]
+    # print("6 7 8")
+    return True
 
-  for row in range(3):
-    if all( row[row][i] == row[row][0] for i in range(3)):
-      return true
-  
   return False
 
 
 #VERTICAL
 def check_V(board):
   global winner
-  for col in range(3):
-    if all( board[row][col] == board[0][col] for row in range[3]):
-      return True
+  if board[0] == board[3] == board[6] and board[0] != "-":
+    winner = board[0]
+    return True
+  elif board[1] == board[4] == board[7] and board[1] != "-":
+    winner = board[1]
+    return True
+  elif board[2] == board[5] == board[8] and board[2] != "-":
+    winner = board[2]
+    return True
 
   return False
 
@@ -93,11 +91,11 @@ def check_V(board):
 #DIAGONAL
 def check_D(board):
   global winner
-  if board[0][0] == board[1][1] == board[2][2] and board[0][0] != "-":
-    winner = board[0][0]
+  if board[0] == board[4] == board[8] and board[0] != "-":
+    winner = board[0]
     return True
-  elif board[1][1] == board[2][0] == board[0][2] and board[1][1] != "-":
-    winner = board[1][1]
+  elif board[2] == board[4] == board[6] and board[2] != "-":
+    winner = board[2]
     return True
 
   return False
@@ -106,13 +104,10 @@ def check_D(board):
 #TIE
 def check_T(board):
   global gameRunning
-  for row in range(3):
-    for col in range(3):
-      if "-" not in board[row][col]:
-        printBoard(board)
-        print("Its a Tie :)")
-        gameRunning = False
-    
+  if "-" not in board:
+    printBoard(board)
+    print("Its a Tie :)")
+    gameRunning = False
 
 
 def check_win():
@@ -141,4 +136,5 @@ while gameRunning:
     break
 
   switch_P()
+
 
