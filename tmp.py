@@ -1,27 +1,27 @@
-# board = [["-", "-", "-"], 
-#          ["-", "-", "-"], 
-#          ["-", "-", "-"]]
+class Car:
+  def __init__(self, make, model, year):
+      self.make = make
+      self.model = model
+      self.year = year
 
-board = [["-" for _ in range(3)] for _ in range(3)]
-
-
-def printBoard(board):
-  for row in board:
-    print(f"{row[0]} | {row[1]} | {row[2]}")
-    print("-" * 9)
+  def display_info(self):
+      print(f"{self.year} {self.make} {self.model}")
 
 
-# print(board[0][0])
+car1 = Car("Toyota", "Camry", 2020)
+car2 = Car("Honda", "Accord", 2018)
 
-# for num in [1,2,3]:
-#   print(f"({num} -1 / 3)  = {(num - 1) // 3}")
+print(car1.make)  # Output: Toyota
+print(car2.model)  # Output: Accord
 
-# for num in [4,5,6]:
-#   print(f"({num} -1 / 3)  = {(num-1) // 3}")
+car1.display_info()  # Output: 2020 Toyota Camry
+car2.display_info()  # Output: 2018 Honda Accord
 
-# for num in [7,8,9]:
-#   print(f"({num} - 1 / 3)  = {(num-1) // 3}")
 
-row = [0,0,0]
-print(all(row[i] == row[0] for i in range(3)))
+class ElectricCar(Car):
+  def __init__(self, make, model, year, battery_capacity):
+      super().__init__(make, model, year)
+      self.battery_capacity = battery_capacity
 
+  def display_battery_info(self):
+      print(f"Battery Capacity: {self.battery_capacity} kWh")
