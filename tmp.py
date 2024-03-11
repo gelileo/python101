@@ -1,27 +1,25 @@
-class Car:
-  def __init__(self, make, model, year):
-      self.make = make
-      self.model = model
-      self.year = year
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+import json
 
-  def display_info(self):
-      print(f"{self.year} {self.make} {self.model}")
+@dataclass_json
+@dataclass
+class Address:
+    street: str
+    city: str
 
+@dataclass_json
+@dataclass
+class Person:
+    name: str
+    age: int
+    address: Address
 
-car1 = Car("Toyota", "Camry", 2020)
-car2 = Car("Honda", "Accord", 2018)
+# Create instances of nested classes
+address = Address("123 Main St", "Cityville")
+person = Person("John", 30, address)
 
-print(car1.make)  # Output: Toyota
-print(car2.model)  # Output: Accord
+# Convert the instance to JSON
+json_data = person.to_json()
 
-car1.display_info()  # Output: 2020 Toyota Camry
-car2.display_info()  # Output: 2018 Honda Accord
-
-
-class ElectricCar(Car):
-  def __init__(self, make, model, year, battery_capacity):
-      super().__init__(make, model, year)
-      self.battery_capacity = battery_capacity
-
-  def display_battery_info(self):
-      print(f"Battery Capacity: {self.battery_capacity} kWh")
+print(json_data)
