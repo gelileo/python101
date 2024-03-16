@@ -5,12 +5,12 @@ import random
 pygame.init()
 
 # Constants
-WIDTH, HEIGHT = 400, 400
+WIDTH, HEIGHT = 600, 600
 PLAYER_WIDTH, PLAYER_HEIGHT = 50, 50
 OBJECT_WIDTH, OBJECT_HEIGHT = 20, 20
 PLAYER_SPEED = 5
 OBJECT_SPEED = 2
-OBJECT_COUNT = 30
+OBJECT_COUNT = 20
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
@@ -26,7 +26,10 @@ player_rect.centerx = WIDTH // 2
 player_rect.bottom = HEIGHT - 10
 
 # Create falling objects
-objects = [pygame.Rect(random.randint(0, WIDTH - OBJECT_WIDTH), 0, OBJECT_WIDTH, OBJECT_HEIGHT) for _ in range(OBJECT_COUNT)]
+objects = [
+    pygame.Rect(random.randint(0, WIDTH - OBJECT_WIDTH), 0, OBJECT_WIDTH, OBJECT_HEIGHT)
+    for _ in range(OBJECT_COUNT)
+]
 
 # Initialize game variables
 score = 0

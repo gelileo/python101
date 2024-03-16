@@ -22,14 +22,26 @@ pygame.display.set_caption("Simple Shooting Game")
 
 # Load player image (triangle)
 player = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT), pygame.SRCALPHA)
-pygame.draw.polygon(player, RED, [(PLAYER_WIDTH // 2, 0), (0, PLAYER_HEIGHT), (PLAYER_WIDTH, PLAYER_HEIGHT)])
+pygame.draw.polygon(
+    player,
+    RED,
+    [(PLAYER_WIDTH // 2, 0), (0, PLAYER_HEIGHT), (PLAYER_WIDTH, PLAYER_HEIGHT)],
+)
 player_rect = player.get_rect()
 player_rect.centerx = WIDTH // 2
 player_rect.bottom = HEIGHT - 10
 
 # Create bullets and targets
 bullets = []
-targets = [pygame.Rect(random.randint(0, WIDTH - TARGET_WIDTH), -TARGET_HEIGHT, TARGET_WIDTH, TARGET_HEIGHT) for _ in range(MAX_TARGETS)]
+targets = [
+    pygame.Rect(
+        random.randint(0, WIDTH - TARGET_WIDTH),
+        -TARGET_HEIGHT,
+        TARGET_WIDTH,
+        TARGET_HEIGHT,
+    )
+    for _ in range(MAX_TARGETS)
+]
 
 # Initialize game variables
 score = 0
@@ -53,7 +65,12 @@ while running:
 
     # Shoot bullets
     if keys[pygame.K_SPACE]:
-        bullet = pygame.Rect(player_rect.centerx - BULLET_WIDTH // 2, player_rect.top, BULLET_WIDTH, BULLET_HEIGHT)
+        bullet = pygame.Rect(
+            player_rect.centerx - BULLET_WIDTH // 2,
+            player_rect.top,
+            BULLET_WIDTH,
+            BULLET_HEIGHT,
+        )
         bullets.append(bullet)
 
     # Move and update bullets
@@ -65,7 +82,7 @@ while running:
     for target in targets:
         target.y += TARGET_SPEED
         if target.y > HEIGHT:
-            target.y = -TARGET_HEIGHT
+            target.y = 0
             target.x = random.randint(0, WIDTH - TARGET_WIDTH)
 
     # Check for collisions between bullets and targets
@@ -96,7 +113,6 @@ while running:
 
     # Control frame rate
     clock.tick(60)
-
 
 
 ending_text = font.render("Insert Coins To Continue", True, RED)
