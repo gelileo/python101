@@ -22,12 +22,51 @@ pygame.display.set_caption("TIC TAC TOE")
 WHITE = (255, 255, 255)
 BLUE = (64, 128, 255, 160)
 BLACK = (0, 0, 0)
+GRAY = (200, 200, 200, 128)
+
+# Button properties
+button_width, button_height = 200, 50
+button_x = (screen_width - button_width) // 2
+button_y = screen_height - 100  # Position button at the bottom
+button_color = GRAY
+button_text_color = BLUE
+button_font = pygame.font.SysFont(None, 40)
 
 # Define the game board
 board = [["" for _ in range(3)] for _ in range(3)]
 
 
+def reset_game():
+    global board, current_player, game_over, status
+    board = [["" for _ in range(3)] for _ in range(3)]
+    current_player = "X"
+    game_over = False
+    status = "Player X's turn"
+    redraw()
+
+
+def draw_button():
+    pygame.draw.rect(screen, button_color, [
+                     button_x, button_y, button_width, button_height],
+                     border_radius=10)
+    button_text = button_font.render("Start Over", True, button_text_color)
+    text_rect = button_text.get_rect(
+        center=(button_x + button_width / 2, button_y + button_height / 2))
+    screen.blit(button_text, text_rect)
+
+
+status = "Player X's turn"
+
+
+def draw_status():
+    text_surface = status_font.render(status, True, BLACK)
+    screen.blit(text_surface, ((screen_width -
+                text_surface.get_width()) // 2,
+                               screen_height - 150))
+
 # Function to draw the game board
+
+
 def draw_board():
     for row in range(3):
         for col in range(3):
@@ -101,16 +140,6 @@ def draw_shape(row, col):
         )
 
 
-status = ''
-
-
-def draw_status():
-    text_surface = status_font.render(status, False, BLACK)
-    screen.blit(text_surface, ((screen_width -
-                text_surface.get_width()) // 2,
-                               screen_height - 150))
-
-
 #
 # Variable to keep track of current player
 current_player = "X"
@@ -176,6 +205,7 @@ def redraw():
     screen.fill(WHITE)
     draw_board()
     draw_status()
+    draw_button()
     pygame.display.flip()
 
 
@@ -193,23 +223,28 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            row, col = get_cell_position(mouse_pos)
-            print("Clicked cell:", row, col)
-            if not game_over and board[row][col] == "":
-                board[row][col] = current_player
-                needs_redraw = True
-                if check_win():
-                    game_over = True
-                    redraw()
-                    break
+            x = mouse_pos[0]
+            y = mouse_pos[1]
+            if button_x <= x <= button_x + button_width and button_y <= y <= button_y + button_height:
+                reset_game()
+            else:
+                row, col = get_cell_position(mouse_pos)
+                print("Clicked cell:", row, col)
+                if not game_over and board[row][col] == "":
+                    board[row][col] = current_player
+                    needs_redraw = True
+                    if check_win():
+                        game_over = True
+                        redraw()
+                        break
 
-                if check_tie(board):
-                    game_over = True
-                    redraw()
-                    break
+                    if check_tie(board):
+                        game_over = True
+                        redraw()
+                        break
 
-                switch_player()
-                redraw()
+                    switch_player()
+                    redraw()
 
     clock.tick(30)
 
