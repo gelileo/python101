@@ -5,10 +5,13 @@ import sys
 pygame.init()
 
 # Set up the screen
-cell_size = 200
+cell_size = 150
 cell_padding = 10
+shape_margin = 35
+shape_x_width = 25
+shape_o_radius = 20
 screen_width = 3 * cell_size - 2 * cell_padding
-screen_height = screen_width
+screen_height = screen_width + 200
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("TIC TAC TOE")
 
@@ -56,27 +59,31 @@ def draw_shape(row, col):
             screen,
             BLACK,
             (
-                col * cell_size + 50 - (col * cell_padding),
-                row * cell_size + 50 - (row * cell_padding),
+                col * cell_size + shape_margin - (col * cell_padding),
+                row * cell_size + shape_margin - (row * cell_padding),
             ),
             (
-                col * cell_size + cell_size - 50 - (col * cell_padding),
-                row * cell_size + cell_size - 50 - (row * cell_padding),
+                col * cell_size + cell_size -
+                shape_margin - (col * cell_padding),
+                row * cell_size + cell_size -
+                shape_margin - (row * cell_padding),
             ),
-            25,
+            shape_x_width,
         )
         pygame.draw.line(
             screen,
             BLACK,
             (
-                col * cell_size + cell_size - 50 - (col * cell_padding),
-                row * cell_size + 50 - (row * cell_padding),
+                col * cell_size + cell_size -
+                shape_margin - (col * cell_padding),
+                row * cell_size + shape_margin - (row * cell_padding),
             ),
             (
-                col * cell_size + 50 - (col * cell_padding),
-                row * cell_size + cell_size - 50 - (row * cell_padding),
+                col * cell_size + shape_margin - (col * cell_padding),
+                row * cell_size + cell_size -
+                shape_margin - (row * cell_padding),
             ),
-            25,
+            shape_x_width,
         )
     elif player == "O":
         pygame.draw.circle(
@@ -86,8 +93,8 @@ def draw_shape(row, col):
                 col * cell_size + cell_size // 2 - (col * cell_padding),
                 row * cell_size + cell_size // 2 - (row * cell_padding),
             ),
-            cell_size // 2 - 50 + 10,
-            20,
+            cell_size // 2 - shape_margin + 10,
+            shape_o_radius,
         )
 
 
