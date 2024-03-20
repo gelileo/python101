@@ -23,7 +23,7 @@ WHITE = (255, 255, 255)
 BLUE = (64, 128, 255, 160)
 BLACK = (0, 0, 0)
 GRAY = (200, 200, 200, 128)
-DARK_GRAY = (170, 170, 170)  # Darker color for hover effect
+DARK_GRAY = (128, 128, 128)  # Darker color for hover effect
 
 # Button properties
 button_width, button_height = 200, 50
@@ -50,13 +50,14 @@ def reset_game(mouse_pos):
 
 
 def draw_button(mouse_pos):
-    print(f"Drawing button at {mouse_pos}")
+    # print(f"Drawing button at {mouse_pos}")
     # Check if mouse is over the button
     if button_rect.collidepoint(mouse_pos):
-        print("Mouse is over the button")
         button_color = DARK_GRAY  # Mouse is hovering over the button
+        button_text_color = WHITE
     else:
         button_color = GRAY  # Mouse is not hovering over the button
+        button_text_color = BLUE
 
     pygame.draw.rect(screen, button_color, button_rect, border_radius=10)
     button_text = button_font.render("Start Over", True, button_text_color)
@@ -107,7 +108,7 @@ def get_cell_position(mouse_pos):
 def draw_shape(row, col):
     player = board[row][col]
     if player == "X":
-        print(f"drawing {current_player} at ({row}, {col})")
+        # print(f"drawing {current_player} at ({row}, {col})")
         pygame.draw.line(
             screen,
             BLACK,
