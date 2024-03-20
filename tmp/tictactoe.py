@@ -1,5 +1,7 @@
 import pygame
 import sys
+import random
+from particle import Particle
 
 # Initialize Pygame
 pygame.init()
@@ -38,6 +40,16 @@ button_rect = pygame.Rect(button_x, button_y, button_width, button_height)
 
 # Define the game board
 board = [["" for _ in range(3)] for _ in range(3)]
+
+# Global list to store particles
+particles = []
+
+
+def celebration(x, y, particles):
+    for _ in range(100):  # Number of particles
+        color = random.choice(
+            [(255, 255, 255), (255, 215, 0), (255, 69, 0)])  # Particle colors
+        particles.append(Particle(x, y, color))
 
 
 def reset_game(mouse_pos):
@@ -257,6 +269,7 @@ while running:
                     if check_win():
                         game_over = True
                         redraw(mouse_pos)
+                        celebration(mouse_pos[0], mouse_pos[1], particles)
                         break
 
                     if check_tie(board):
@@ -268,6 +281,12 @@ while running:
                     redraw(mouse_pos)
         else:
             redraw(mouse_pos)
+
+    for particle in particles[:]:
+        particle.update()
+        particle.draw(screen)
+        if particle.lifetime <= 0:
+            particles.remove(particle)
 
     pygame.display.flip()
     clock.tick(30)
