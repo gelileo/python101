@@ -4,6 +4,9 @@ import sys
 # Initialize Pygame
 pygame.init()
 
+pygame.font.init()  # Initialize the font module
+status_font = pygame.font.SysFont("Arial", 20)
+
 # Set up the screen
 cell_size = 150
 cell_padding = 10
@@ -98,6 +101,16 @@ def draw_shape(row, col):
         )
 
 
+status = ''
+
+
+def draw_status():
+    text_surface = status_font.render(status, False, BLACK)
+    screen.blit(text_surface, ((screen_width -
+                text_surface.get_width()) // 2,
+                               screen_height - 150))
+
+
 #
 # Variable to keep track of current player
 current_player = "X"
@@ -107,8 +120,10 @@ current_player = "X"
 
 def switch_player():
     global current_player
+    global status
     current_player = "O" if current_player == "X" else "X"
-    print(f"Now waiting for player {current_player}:")
+    # print(f"Now waiting for player {current_player}:")
+    status = f"Player {current_player}'s turn"
 
 # Check win
 
@@ -136,12 +151,19 @@ def check_diagnal(board):
 
 
 def check_tie(board):
-    return all(cell != '' for row in board for cell in row)
+    global status
+    if all(cell != '' for row in board for cell in row):
+        status = "It's a tie!"
+        return True
+    else:
+        return False
 
 
 def check_win():
+    global status
     if check_diagnal(board) or check_row(board) or check_column(board):
-        print(f"The winner is {current_player}")
+        # print(f"The winner is {current_player}")
+        status = f"Game Over! The winner is {current_player}"
         return True
     else:
         return False
@@ -151,9 +173,10 @@ clock = pygame.time.Clock()
 
 
 def redraw():
+    screen.fill(WHITE)
     draw_board()
+    draw_status()
     pygame.display.flip()
-    clock.tick(30)
 
 
 # Init the screen
@@ -187,6 +210,8 @@ while running:
 
                 switch_player()
                 redraw()
+
+    clock.tick(30)
 
 
 # Quit Pygame
