@@ -1,8 +1,9 @@
 import pygame
 import sys
 
-
-num_disks = 4
+pages = ["setup", "game", "solution"]
+page = "setup"
+num_disks = 3
 
 # Layout Constants
 # -----------------------------------
@@ -19,13 +20,16 @@ num_disks = 4
 DISK_HEIGHT = 30
 DISK_WIDTH_FACTOR = 50
 ROD_WIDTH = 10
-ROD_HEIGHT = DISK_HEIGHT * num_disks + 50
 ROD_GAP = 250
 FONT_SIZE = 20
 PADDING = 20
 SCREEN_WIDTH = 800
 BASE_LINE_THICKNESS = 2
 # SCREEN_HEIGHT = 600
+
+
+def get_rod_height():
+    return DISK_HEIGHT * num_disks + 50
 
 
 # Colors
@@ -90,7 +94,7 @@ button_font = pygame.font.SysFont(None, button_font_size)
 def get_screen_height():
     status_height = PADDING * 2 + FONT_SIZE
     rod_names_height = PADDING * 2 + FONT_SIZE
-    rod_height = ROD_HEIGHT + BASE_LINE_THICKNESS
+    rod_height = get_rod_height() + BASE_LINE_THICKNESS
     btn_height = button_height + PADDING * 2
     return status_height + rod_names_height + rod_height + btn_height
 
@@ -104,23 +108,29 @@ def get_baseline_y():
 
 
 # Button rectangle for hover detection
-button_rect = pygame.Rect(
-    button_x, get_baseline_y() + PADDING, button_width, button_height
-)
+def get_button_rect():
+    return pygame.Rect(
+        button_x, get_button_y(), button_width, button_height
+    )
+
 
 move_button_width, move_button_height = 100, 40
-move_button_rect = pygame.Rect(
-    SCREEN_WIDTH - move_button_width - PADDING,
-    get_baseline_y() + PADDING,
-    move_button_width,
-    button_height
-)
+
+
+def get_move_button_rect():
+    return pygame.Rect(
+        SCREEN_WIDTH - move_button_width - PADDING,
+        get_baseline_y() + PADDING,
+        move_button_width,
+        button_height
+    )
 
 
 def draw_rod(screen, x):
+    rod_height = get_rod_height()
     pygame.draw.rect(
-        screen, BLACK, (x, get_baseline_y() - ROD_HEIGHT,
-                        ROD_WIDTH, ROD_HEIGHT)
+        screen, BLACK, (x, get_baseline_y() - rod_height,
+                        ROD_WIDTH, rod_height)
     )
 
 
@@ -133,7 +143,7 @@ def get_rod_name_rects():
     return [
         pygame.Rect(
             x - ROD_WIDTH * 1.5,
-            get_baseline_y() - ROD_HEIGHT - PADDING // 2 - button_font_size,
+            get_baseline_y() - get_rod_height() - PADDING // 2 - button_font_size,
             ROD_WIDTH * 3,
             button_font_size,
         )
@@ -146,16 +156,17 @@ def draw_rod_names(mouse_pos):
     rod_name_rects = get_rod_name_rects()
     # print(rod_name_rects)
 
-    for index, rect in enumerate(rod_name_rects):
-        if index == selected_source:
-            pygame.draw.rect(screen, SOURCE_COLOR, rect)
-            pygame.draw.rect(screen, BLACK, rect, width=1)
-        elif index == selected_target:
-            pygame.draw.rect(screen, TARGET_COLOR, rect)
-            pygame.draw.rect(screen, BLACK, rect, width=1)
-        else:
-            if rect.collidepoint(mouse_pos):
-                pygame.draw.rect(screen, button_color, rect)
+    if not check_win():
+        for index, rect in enumerate(rod_name_rects):
+            if index == selected_source:
+                pygame.draw.rect(screen, SOURCE_COLOR, rect)
+                pygame.draw.rect(screen, BLACK, rect, width=1)
+            elif index == selected_target:
+                pygame.draw.rect(screen, TARGET_COLOR, rect)
+                pygame.draw.rect(screen, BLACK, rect, width=1)
+            else:
+                if rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(screen, button_color, rect)
 
     for rod_name, rod_name_rect in zip(rod_names, rod_name_rects):
         text_surface = button_font.render(rod_name, True, (128, 128, 128))
@@ -171,9 +182,10 @@ def draw_rod_names(mouse_pos):
 
 
 def rod_rects():
+    rod_height = get_rod_height()
     return [
         pygame.Rect(
-            x - ROD_WIDTH // 2, get_baseline_y() - ROD_HEIGHT, ROD_WIDTH, ROD_HEIGHT
+            x - ROD_WIDTH // 2, get_baseline_y() - rod_height, ROD_WIDTH, rod_height
         )
         for x in range(SCREEN_WIDTH // 4, SCREEN_WIDTH, SCREEN_WIDTH // 4)
     ]
@@ -222,6 +234,7 @@ def draw_disk(screen, x, y, width, color, number):
 
 
 def draw_reset_button(mouse_pos):
+    button_rect = get_button_rect()
     # Check if mouse is over the button
     if button_rect.collidepoint(mouse_pos):
         button_color = DARK_GRAY  # Mouse is hovering over the button
@@ -237,6 +250,7 @@ def draw_reset_button(mouse_pos):
 
 
 def draw_move_button(mouse_pos):
+    move_button_rect = get_move_button_rect()
     # Hide if source or target is not selected
     if selected_source == -1 or selected_target == -1:
         return
@@ -255,7 +269,7 @@ def draw_move_button(mouse_pos):
     screen.blit(button_text, text_rect)
 
 
-def redraw(mouse_pos=[0, 0]):
+def redraw_game(mouse_pos=[0, 0]):
     screen.fill(BACKGROUND_COLOR)
     draw_rods()
     draw_rod_names(mouse_pos)
@@ -266,8 +280,54 @@ def redraw(mouse_pos=[0, 0]):
     draw_disks()  # Draw disks according to their current positions
 
 
+def draw_level_buttons(mouse_pos):
+    rects = get_setup_level_rects()
+    titles = ["Easy", "Medium", "Hard", "Master"]
+    for index, rect in enumerate(rects):
+        if rect.collidepoint(mouse_pos):
+            button_color = DARK_GRAY  # Mouse is hovering over the button
+            button_text_color = WHITE
+        else:
+            button_color = GRAY
+            button_text_color = BLUE
+
+        pygame.draw.rect(screen, button_color, rect, border_radius=10)
+        text = button_font.render(titles[index], True, button_text_color)
+        text_rect = text.get_rect(center=rect.center)
+        screen.blit(text, text_rect)
+
+
+def get_setup_level_rects():
+    height = get_screen_height()
+    return [
+        pygame.Rect(
+            (SCREEN_WIDTH - button_width) // 2,
+            y - button_height // 2,
+            button_width,
+            button_height,
+        )
+        for y in range(height // 4, (height // 4) * 4, height // 4)
+    ]
+
+
+def redraw_setup(mouse_pos):
+    screen.fill(BACKGROUND_COLOR)
+    draw_level_buttons(mouse_pos)
+
+
+def redraw(mouse_pos):
+    if page == "setup":
+        redraw_setup(mouse_pos)
+    elif page == "game":
+        redraw_game(mouse_pos)
+    elif page == "solution":
+        pass
+
+
 def reset_game(mouse_pos):
-    global steps, applied_steps, selected_source, selected_target
+    global steps, applied_steps, selected_source, selected_target, page
+    page = "setup"
+    num_disks = 3
     steps = []
     applied_steps = []
     clear_selections()
@@ -287,6 +347,7 @@ def get_current_step():
 
 
 def draw_disks():
+    tower_positions = get_tower_positions()
     for tower_index, tower in enumerate(towers):
         for disk_index, disk in enumerate(tower):
             x = tower_positions[tower_index][0] + ROD_WIDTH // 2
@@ -311,6 +372,9 @@ def draw_status():
     if should_show_warning():
         msg = warning
         color = WARNING_COLOR
+    elif check_win():
+        msg = "Congratulations! You have solved the puzzle."
+        color = (0, 255, 0)
     else:
         if selected_source != -1 and selected_target != -1:
             msg = f"Souce: {rod_name(selected_source)}, Target: {rod_name(selected_target)}"
@@ -366,23 +430,42 @@ def should_select_rod(rod_index):
     return selected_source == -1 or selected_target == -1 or selected_source == rod_index or selected_target == rod_index
 
 
-def update_cursor(mouse_pos):
-    if button_rect.collidepoint(mouse_pos):
+def setup_page_update_cursor(mouse_pos):
+    rects = get_setup_level_rects()
+    for index, rect in enumerate(rects):
+        if rect.collidepoint(mouse_pos):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+            return
+    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+
+def game_page_update_cursor(mouse_pos):
+    if get_button_rect().collidepoint(mouse_pos):
         # Change cursor when hovering over the button
         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
     else:
-        rod_name_rects = get_rod_name_rects()
-        for index, rect in enumerate(rod_name_rects):
-            if rect.collidepoint(mouse_pos):
-                if should_select_rod(index):
-                    # Change cursor when hovering over a rod name
-                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-                    return
+        if not check_win():
+            rod_name_rects = get_rod_name_rects()
+            for index, rect in enumerate(rod_name_rects):
+                if rect.collidepoint(mouse_pos):
+                    if should_select_rod(index):
+                        # Change cursor when hovering over a rod name
+                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                        return
         # Set to default cursor otherwise
         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
 
+def update_cursor(mouse_pos):
+    if page == "setup":
+        setup_page_update_cursor(mouse_pos)
+    elif page == "game":
+        game_page_update_cursor(mouse_pos)
+
+
 def check_clicked_on_rod_names(mouse_pos):
+    if check_win():
+        return -1
     rod_name_rects = get_rod_name_rects()
     for index, rect in enumerate(rod_name_rects):
         if rect.collidepoint(mouse_pos):
@@ -426,6 +509,10 @@ def can_move(source, target):
     return True
 
 
+def check_win():
+    return len(towers[0]) == 0 and len(towers[1]) == 0
+
+
 def on_click_move():
     global status, applied_steps
     source, target = selected_source, selected_target
@@ -439,16 +526,55 @@ def on_click_move():
     clear_selections()
 
 
+def game_page_mouse_down(mouse_pos):
+    if get_button_rect().collidepoint(mouse_pos):
+        reset_game(mouse_pos)
+    elif get_move_button_rect().collidepoint(mouse_pos):
+        on_click_move()
+    else:
+        on_click_rod_name(check_clicked_on_rod_names(mouse_pos))
+
+
+def setup_page_mouse_down(mouse_pos):
+    global num_disks, page, towers
+    levels = [3, 4, 5]
+    rects = get_setup_level_rects()
+    for index, rect in enumerate(rects):
+        if rect.collidepoint(mouse_pos):
+            num_disks = levels[index]
+            resize_screen()
+            page = "game"
+            towers = [
+                [i for i in range(num_disks, 0, -1)],
+                [],
+                [],
+            ]
+            return
+
+
 # Initialize game window
-screen = pygame.display.set_mode((SCREEN_WIDTH, get_screen_height()))
+screen_height = get_screen_height()
+screen = pygame.display.set_mode(
+    (SCREEN_WIDTH, screen_height), pygame.RESIZABLE)
 pygame.display.set_caption("Tower of Hanoi")
 
-# Define initial tower positions
-tower_positions = [
-    (SCREEN_WIDTH // 4 - ROD_WIDTH // 2, get_baseline_y() - ROD_HEIGHT),
-    (2 * SCREEN_WIDTH // 4 - ROD_WIDTH // 2, get_baseline_y() - ROD_HEIGHT),
-    (3 * SCREEN_WIDTH // 4 - ROD_WIDTH // 2, get_baseline_y() - ROD_HEIGHT),
-]
+
+def resize_screen():
+    global screen, screen_height
+    screen_height = get_screen_height()
+    screen = pygame.display.set_mode(
+        (SCREEN_WIDTH, screen_height), pygame.RESIZABLE)
+
+
+def get_tower_positions():
+    return [
+        (SCREEN_WIDTH // 4 - ROD_WIDTH // 2, get_baseline_y() - get_rod_height()),
+        (2 * SCREEN_WIDTH // 4 - ROD_WIDTH // 2,
+         get_baseline_y() - get_rod_height()),
+        (3 * SCREEN_WIDTH // 4 - ROD_WIDTH // 2,
+         get_baseline_y() - get_rod_height()),
+    ]
+
 
 # Initialize towers with disks
 towers = [
@@ -471,12 +597,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if button_rect.collidepoint(mouse_pos):
-                reset_game(mouse_pos)
-            elif move_button_rect.collidepoint(mouse_pos):
-                on_click_move()
-            else:
-                on_click_rod_name(check_clicked_on_rod_names(mouse_pos))
+            if page == "setup":
+                setup_page_mouse_down(mouse_pos)
+                print(f"Num disks: {num_disks}")
+            elif page == "game":
+                game_page_mouse_down(mouse_pos)
         # elif event.type == pygame.KEYDOWN:
         #     if event.key == pygame.K_LEFT:
         #         if len(applied_steps) > 0:
