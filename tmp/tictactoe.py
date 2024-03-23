@@ -11,11 +11,11 @@ status_font = pygame.font.SysFont("Arial", 20)
 
 # Set up the screen
 cell_size = 150
-cell_padding = 10
+CELL_BORDER = 10
 shape_margin = 35
 shape_x_width = 25
 shape_o_radius = 20
-screen_width = 3 * cell_size - 2 * cell_padding
+screen_width = 3 * cell_size - 2 * CELL_BORDER
 screen_height = screen_width + 200
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("TIC TAC TOE")
@@ -98,12 +98,12 @@ def draw_board():
                 screen,
                 BLUE,
                 (
-                    col * cell_size - (col * cell_padding),
-                    row * cell_size - (row * cell_padding),
+                    col * cell_size - (col * CELL_BORDER),
+                    row * cell_size - (row * CELL_BORDER),
                     cell_size,
                     cell_size,
                 ),
-                cell_padding,
+                CELL_BORDER,
                 border_radius=5,
             )
             draw_shape(row, col)
@@ -125,14 +125,14 @@ def draw_shape(row, col):
             screen,
             BLACK,
             (
-                col * cell_size + shape_margin - (col * cell_padding),
-                row * cell_size + shape_margin - (row * cell_padding),
+                col * cell_size + shape_margin - (col * CELL_BORDER),
+                row * cell_size + shape_margin - (row * CELL_BORDER),
             ),
             (
                 col * cell_size + cell_size -
-                shape_margin - (col * cell_padding),
+                shape_margin - (col * CELL_BORDER),
                 row * cell_size + cell_size -
-                shape_margin - (row * cell_padding),
+                shape_margin - (row * CELL_BORDER),
             ),
             shape_x_width,
         )
@@ -141,13 +141,13 @@ def draw_shape(row, col):
             BLACK,
             (
                 col * cell_size + cell_size -
-                shape_margin - (col * cell_padding),
-                row * cell_size + shape_margin - (row * cell_padding),
+                shape_margin - (col * CELL_BORDER),
+                row * cell_size + shape_margin - (row * CELL_BORDER),
             ),
             (
-                col * cell_size + shape_margin - (col * cell_padding),
+                col * cell_size + shape_margin - (col * CELL_BORDER),
                 row * cell_size + cell_size -
-                shape_margin - (row * cell_padding),
+                shape_margin - (row * CELL_BORDER),
             ),
             shape_x_width,
         )
@@ -156,8 +156,8 @@ def draw_shape(row, col):
             screen,
             "red",
             (
-                col * cell_size + cell_size // 2 - (col * cell_padding),
-                row * cell_size + cell_size // 2 - (row * cell_padding),
+                col * cell_size + cell_size // 2 - (col * CELL_BORDER),
+                row * cell_size + cell_size // 2 - (row * CELL_BORDER),
             ),
             cell_size // 2 - shape_margin + 10,
             shape_o_radius,

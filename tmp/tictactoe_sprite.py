@@ -18,7 +18,7 @@ board = [["" for _ in range(3)] for _ in range(3)]
 
 # Cell properties
 cell_size = 200
-cell_padding = 10
+CELL_BORDER = 10
 
 
 # Sprite classes
