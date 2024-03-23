@@ -1,22 +1,32 @@
 import pygame
 import sys
 import random
+import math
 from particle import Particle
 
 # Initialize Pygame
 pygame.init()
 
 pygame.font.init()  # Initialize the font module
-status_font = pygame.font.SysFont("Arial", 20)
+
+size_factor = 0.75
+
+
+def factored_size(value):
+    return math.floor(value * size_factor)
+
 
 # Set up the screen
-cell_size = 150
-CELL_BORDER = 10
-shape_margin = 35
-shape_x_width = 25
-shape_o_radius = 20
-screen_width = 3 * cell_size - 2 * CELL_BORDER
-screen_height = screen_width + 200
+
+cell_size = factored_size(150)
+cell_padding = factored_size(10)
+shape_margin = factored_size(35)
+shape_x_width = factored_size(25)
+shape_o_radius = factored_size(20)
+screen_width = 3 * cell_size - 2 * cell_padding
+status_height = factored_size(200)
+screen_height = screen_width + status_height
+
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("TIC TAC TOE")
 
@@ -28,12 +38,20 @@ GRAY = (200, 200, 200, 128)
 DARK_GRAY = (128, 128, 128)  # Darker color for hover effect
 
 # Button properties
-button_width, button_height = 200, 50
+button_width, button_height = factored_size(200), factored_size(50)
+
 button_x = (screen_width - button_width) // 2
-button_y = screen_height - 100  # Position button at the bottom
+button_y = (
+    screen_height - (status_height + button_height) // 2
+)  # Position button at the bottom
 button_color = GRAY
 button_text_color = BLUE
-button_font = pygame.font.SysFont(None, 40)
+
+
+button_font_size = factored_size(40)
+status_font_size = factored_size(20)
+status_font = pygame.font.SysFont("Arial", status_font_size)
+button_font = pygame.font.SysFont(None, button_font_size)
 
 # Button rectangle for hover detection
 button_rect = pygame.Rect(button_x, button_y, button_width, button_height)
@@ -48,7 +66,8 @@ particles = []
 def celebration(x, y, particles):
     for _ in range(100):  # Number of particles
         color = random.choice(
-            [(255, 255, 255), (255, 215, 0), (255, 69, 0)])  # Particle colors
+            [(255, 255, 255), (255, 215, 0), (255, 69, 0)]
+        )  # Particle colors
         particles.append(Particle(x, y, color))
 
 
@@ -84,9 +103,14 @@ status = "Player X's turn"
 
 def draw_status():
     text_surface = status_font.render(status, True, BLACK)
-    screen.blit(text_surface, ((screen_width -
-                text_surface.get_width()) // 2,
-                               screen_height - 150))
+    screen.blit(
+        text_surface,
+        (
+            (screen_width - text_surface.get_width()) // 2,
+            screen_height - factored_size(150),
+        ),
+    )
+
 
 # Function to draw the game board
 
@@ -98,12 +122,12 @@ def draw_board():
                 screen,
                 BLUE,
                 (
-                    col * cell_size - (col * CELL_BORDER),
-                    row * cell_size - (row * CELL_BORDER),
+                    col * cell_size - (col * cell_padding),
+                    row * cell_size - (row * cell_padding),
                     cell_size,
                     cell_size,
                 ),
-                CELL_BORDER,
+                cell_padding,
                 border_radius=5,
             )
             draw_shape(row, col)
@@ -125,14 +149,12 @@ def draw_shape(row, col):
             screen,
             BLACK,
             (
-                col * cell_size + shape_margin - (col * CELL_BORDER),
-                row * cell_size + shape_margin - (row * CELL_BORDER),
+                col * cell_size + shape_margin - (col * cell_padding),
+                row * cell_size + shape_margin - (row * cell_padding),
             ),
             (
-                col * cell_size + cell_size -
-                shape_margin - (col * CELL_BORDER),
-                row * cell_size + cell_size -
-                shape_margin - (row * CELL_BORDER),
+                col * cell_size + cell_size - shape_margin - (col * cell_padding),
+                row * cell_size + cell_size - shape_margin - (row * cell_padding),
             ),
             shape_x_width,
         )
@@ -140,14 +162,12 @@ def draw_shape(row, col):
             screen,
             BLACK,
             (
-                col * cell_size + cell_size -
-                shape_margin - (col * CELL_BORDER),
-                row * cell_size + shape_margin - (row * CELL_BORDER),
+                col * cell_size + cell_size - shape_margin - (col * cell_padding),
+                row * cell_size + shape_margin - (row * cell_padding),
             ),
             (
-                col * cell_size + shape_margin - (col * CELL_BORDER),
-                row * cell_size + cell_size -
-                shape_margin - (row * CELL_BORDER),
+                col * cell_size + shape_margin - (col * cell_padding),
+                row * cell_size + cell_size - shape_margin - (row * cell_padding),
             ),
             shape_x_width,
         )
@@ -156,10 +176,10 @@ def draw_shape(row, col):
             screen,
             "red",
             (
-                col * cell_size + cell_size // 2 - (col * CELL_BORDER),
-                row * cell_size + cell_size // 2 - (row * CELL_BORDER),
+                col * cell_size + cell_size // 2 - (col * cell_padding),
+                row * cell_size + cell_size // 2 - (row * cell_padding),
             ),
-            cell_size // 2 - shape_margin + 10,
+            cell_size // 2 - shape_margin + factored_size(10),
             shape_o_radius,
         )
 
@@ -177,6 +197,7 @@ def switch_player():
     current_player = "O" if current_player == "X" else "X"
     # print(f"Now waiting for player {current_player}:")
     status = f"Player {current_player}'s turn"
+
 
 # Check win
 
@@ -198,14 +219,16 @@ def check_column(board):
 
 
 def check_diagnal(board):
-    if all(board[i][i] == current_player for i in range(3)) or all(board[i][2 - i] == current_player for i in range(3)):
+    if all(board[i][i] == current_player for i in range(3)) or all(
+        board[i][2 - i] == current_player for i in range(3)
+    ):
         return True
     return False
 
 
 def check_tie(board):
     global status
-    if all(cell != '' for row in board for cell in row):
+    if all(cell != "" for row in board for cell in row):
         status = "It's a tie!"
         return True
     else:
@@ -234,9 +257,9 @@ def redraw(mouse_pos=[0, 0]):
 
 
 # Init the screen
-screen.fill(WHITE)
-draw_board()
-pygame.display.flip()
+# screen.fill(WHITE)
+# draw_board()
+# pygame.display.flip()
 running = True
 game_over = False
 # Main loop
@@ -268,20 +291,20 @@ while running:
                     board[row][col] = current_player
                     if check_win():
                         game_over = True
-                        redraw(mouse_pos)
+                        # redraw(mouse_pos)
                         celebration(mouse_pos[0], mouse_pos[1], particles)
                         break
 
                     if check_tie(board):
                         game_over = True
-                        redraw(mouse_pos)
+                        # redraw(mouse_pos)
                         break
 
                     switch_player()
-                    redraw(mouse_pos)
-        else:
-            redraw(mouse_pos)
-
+                    # redraw(mouse_pos)
+        # else:
+        #     redraw(mouse_pos)
+    redraw(mouse_pos)
     for particle in particles[:]:
         particle.update()
         particle.draw(screen)
