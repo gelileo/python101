@@ -1,5 +1,6 @@
 { pkgs }: {
   deps = [
+    pkgs.pick
     pkgs.portmidi
     pkgs.libpng
     pkgs.libjpeg
