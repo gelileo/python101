@@ -133,7 +133,7 @@ while running:
     redraw()
 
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(10)
 
 
 # Quit Pygame
