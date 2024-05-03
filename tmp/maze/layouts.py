@@ -1,0 +1,10 @@
+# Cell size
+CELL_SIZE = 60
+
+# Maze dimensions
+MAZE_WIDTH = 12
+MAZE_HEIGHT = 7
+
+# Window size
+WINDOW_WIDTH = CELL_SIZE * MAZE_WIDTH
+WINDOW_HEIGHT = CELL_SIZE * MAZE_HEIGHT
