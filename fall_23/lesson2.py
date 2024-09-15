@@ -1,4 +1,4 @@
-name = "Adam"
+
 
 # print(f"Hello {name}! How're you doing?")
 
@@ -30,3 +30,15 @@ hello("Yan")
 # hello("Sam!")
 
 #name = input("What's your name")
+
+
+
+am = "Morning"
+pm = "Afternoon"
+
+# greeting = "Good " + am
+
+def greeting(time):
+    print(f"Good {time}")
+
+greeting(pm)

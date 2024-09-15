@@ -1,9 +1,13 @@
 
 # import math
-mylist = [2,1,3,8,5,6,7,4,5]
-for i in mylist:
-  print(i)
+# mylist = [2,1,3,8,5,6,7,4,5]
+# print(len(mylist))
+# # for i in mylist:
+# #   print(i)
 
+list = range(1, 4)
+for i in list:
+  print(i)
 
 
 # print(mylist)

@@ -7,7 +7,7 @@ def timeTable(num):
         print(f"{i}x{j}={i*j}")
         break
 
-
+timeTable(3)
 #for i in range(1,10):
 #  timeTable(i)
 #  print()

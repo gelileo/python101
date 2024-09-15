@@ -1,107 +1,86 @@
-import pygame
-import sys
+# sum number from 1  to 5
+# 1 + 2 + 3 +4 +5
+# res = 1+2
+# res = res + 3
+# ...
 
-# Constants
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-BLUE = (64, 128, 255, 160)
-BLACK = (0, 0, 0)
-GRAY = (200, 200, 200, 128)
-DARK_GRAY = (128, 128, 128)
+# i=1
+# result = 0
+# while i < 50:
+#   result += i
+#   print(f"i= {i}, result: {result}")
+#   i += 1
 
-# Initialize Pygame
-pygame.init()
-pygame.font.init()  # Initialize the font module
-clock = pygame.time.Clock()
+# print("the end ")
 
-status = "Player X's turn"
-board = [["" for _ in range(3)] for _ in range(3)]
+# find out the i when total reaches 100
 
-CELL_SIZE = 112
-CELL_BORDER = 7
-SCREEN_WIDTH = 350
-SCREEN_HEIGHT = 350
-SHAPE_MARGIN = 12
-SHAPE_O_THICKNESS = 10
-SHARP_O_RADIUS = CELL_SIZE // 2 - SHAPE_MARGIN
-SHAPE_X_THICKNESS = 12
+i = 1
+total = 0
+# while i < 50 and total < 100:
+#   total += i
+#   print(f"i= {i}, total: {total}")
+#   i += 1
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-screen.fill((255, 255, 255))
+# while i < 50:
+#   total += i
+#   print(f"i= {i}, total: {total}")
+#   if total > 100:
+#     break
+#   i += 1
 
-def draw_pieces():
-  pygame.draw.circle(
-    screen,
-    RED,
-    (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2),
-    SHARP_O_RADIUS,
-    SHAPE_O_THICKNESS
-  )
+# a = [1,2,3,4,5, ...]
+# r = range(1,50)
+# for i in r:
+#   total += i
+#   print(f"i= {i}, total: {total}")
+#   i += 1
+#   if total > 100:
+#     break
 
-  # draw 'x'
-  pygame.draw.line(
-    screen, 
-    BLACK,
-    ( (SCREEN_WIDTH - CELL_SIZE) // 2 + SHAPE_MARGIN * 2, (SCREEN_HEIGHT -  CELL_SIZE) // 2 + SHAPE_MARGIN * 2),
-    ( (SCREEN_WIDTH + CELL_SIZE) // 2 - SHAPE_MARGIN * 2, (SCREEN_HEIGHT +  CELL_SIZE) // 2 - SHAPE_MARGIN * 2),
-    SHAPE_X_THICKNESS
-  )
-
-  pygame.draw.line(
-    screen,
-    BLACK,
-    ( (SCREEN_WIDTH - CELL_SIZE) // 2 + SHAPE_MARGIN * 2, (SCREEN_HEIGHT +  CELL_SIZE) // 2 - SHAPE_MARGIN * 2),
-    ( (SCREEN_WIDTH + CELL_SIZE) // 2 - SHAPE_MARGIN * 2, (SCREEN_HEIGHT -  CELL_SIZE) // 2 + SHAPE_MARGIN * 2),
-    SHAPE_X_THICKNESS
-    
-  )
-
-def draw_board():
-  for row in range(3):
-    for col in range(3):
-      pygame.draw.rect(
-        screen, 
-        BLUE,
-        (
-          col * CELL_SIZE - (col * CELL_BORDER), 
-          row * CELL_SIZE - (row * CELL_BORDER), 
-          CELL_SIZE, 
-          CELL_SIZE
-        ),
-        CELL_BORDER
-
-      )
-  
-
-  draw_pieces()
-  pass
-
-def draw_status():
-  print(status)
-  pass
-
-def draw_reset_button():
-  pass
-
-def redraw():
-  # do the drawing here
-  draw_board()
-  draw_status()
-  draw_reset_button()
+# print the total of the odd numbers and stop when total reaches 100
 
 
-running = True
-game_over = False
-while running:
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      running = False
-    
-  
-  redraw()
-  pygame.display.flip()
-  clock.tick(5)
 
-# Quit Pygame
-pygame.quit()
-sys.exit()
+def check_odd(num):
+  if (num % 2) != 0:
+    return True
+  else:
+    return False
+
+def check_even(num):
+  return num % 2 == 0
+
+# for i in range(1,15):
+  # if check_odd(i):
+  #   total += i
+  # print(f"i= {i}, total: {total}")
+  # if total >= 100:
+  #   break
+  # if check_odd(i):
+  # if check_even(i) == False:
+  #   print(i)
+
+for i in range(1, 15, 3):
+  print(i)
+
+
+
+
+print("the end ")
+
+
+
+
+
+# main.py
+
+# Import everything from my_module
+# from my_module import *
+
+# # Now you can call all the functions and access variables directly
+# sum_result = add(10, 5)
+# pi_value = pi
+
+# print(f"Sum: {sum_result}")
+# print(f"Pi: {pi_value}")
