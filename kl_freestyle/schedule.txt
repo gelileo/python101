@@ -1,0 +1,323 @@
+Event Name
+FREESTYLE
+
+Dates
+Sep 30
+
+Days & Time
+2:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 01
+
+Days & Time
+1:45PM - 5:15PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 02
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 02
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 03
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 03
+
+Days & Time
+4:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 04
+
+Days & Time
+2:00PM - 5:30PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 07
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 07
+
+Days & Time
+2:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 08
+
+Days & Time
+1:45PM - 5:15PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 09
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 09
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 10
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 10
+
+Days & Time
+4:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 11
+
+Days & Time
+2:00PM - 5:30PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 14
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 14
+
+Days & Time
+2:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 15
+
+Days & Time
+1:45PM - 5:15PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 16
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 16
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 17
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 17
+
+Days & Time
+4:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 18
+
+Days & Time
+2:00PM - 5:30PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 21
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 21
+
+Days & Time
+2:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 22
+
+Days & Time
+1:45PM - 5:15PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 23
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 23
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 24
+
+Days & Time
+1:45PM - 4:15PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 24
+
+Days & Time
+4:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 25
+
+Days & Time
+3:30PM - 5:30PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 28
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 28
+
+Days & Time
+2:30PM - 5:30PM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 29
+
+Days & Time
+1:45PM - 5:15PM
+
+Event Name
+EARLY BIRD FREESTYLE
+
+Dates
+Oct 30
+
+Days & Time
+6:00AM - 9:00AM
+
+Event Name
+FREESTYLE
+
+Dates
+Oct 30
+
+Days & Time
+1:45PM - 4:15PM
