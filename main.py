@@ -1,86 +1,121 @@
-# sum number from 1  to 5
-# 1 + 2 + 3 +4 +5
-# res = 1+2
-# res = res + 3
-# ...
+# Error Handling
+# num = 10
+# num2 = 0
 
-# i=1
-# result = 0
-# while i < 50:
-#   result += i
-#   print(f"i= {i}, result: {result}")
-#   i += 1
+# try:
+#   print(f"{num} divided by {num2} = {num/num2}")
+# except ZeroDivisionError as e:
+#   print(f"error: {e}")
+# else:
+#   print("some error")
+  
+# print(f"{num} added by {num2} = {num + num2}")
 
-# print("the end ")
+# define functions for 4 basic operation
+# each takes two arguments
+# ex: add(1,2) returns 3
 
-# find out the i when total reaches 100
-
-i = 1
-total = 0
-# while i < 50 and total < 100:
-#   total += i
-#   print(f"i= {i}, total: {total}")
-#   i += 1
-
-# while i < 50:
-#   total += i
-#   print(f"i= {i}, total: {total}")
-#   if total > 100:
-#     break
-#   i += 1
-
-# a = [1,2,3,4,5, ...]
-# r = range(1,50)
-# for i in r:
-#   total += i
-#   print(f"i= {i}, total: {total}")
-#   i += 1
-#   if total > 100:
-#     break
-
-# print the total of the odd numbers and stop when total reaches 100
+def add(a, b):
+  return a + b
+  
+def subtract(a, b):
+  return a - b
+  
+def divide(a, b):
+  return a / b
+  
+def multiply(a, b):
+  return a + b
 
 
+"""Ask the user to enter the numbers and desired operation. Our program performs the operation"""
 
-def check_odd(num):
-  if (num % 2) != 0:
+
+"""
+A func take a number input, and prompt user
+to enter again until a valid input
+Returns the integer
+"""
+def enter_a_num(message):
+  while True:
+    try:
+       return float(input(message))
+    except ValueError:
+      print("Invalid input. Please try again")
+
+def enter_op(message):
+  while True:
+    try:
+      op = int(input(message))
+      if op in [1,2,3,4]:
+        return op
+    except:
+      print("Type operation")
+
+def calculate84():
+  while True:
+    try:
+    if operation == 1:
+      print(add(num1, num2))
+      break
+    elif operation == 2:
+      print(subtract(num1, num2))
+      break
+
+    elif operation == 3:
+      print(multiply(num1, num2))
+      break
+
+    elif operation == 4:
+      print(divide(num1, num2))
+      break
+    else:
+      print("please enter 1/2/3/4")
+
+    
+  
+
+
+"""
+Returns False when it gets wrong input
+"""
+def old_run():
+
+  if operation == '1':
+    print(add(num1, num2))
+    return True
+
+  elif operation == "2":
+    print(subtract(num1, num2))
+    return True
+
+  elif operation == "3":
+    print(multiply(num1, num2))
+    return True
+
+  elif operation == "4":
+    print(divide(num1, num2))
     return True
   else:
-    return False
+    print("please enter 1/2/3/4")
 
-def check_even(num):
-  return num % 2 == 0
+  i+=1
+  return False
 
-# for i in range(1,15):
-  # if check_odd(i):
-  #   total += i
-  # print(f"i= {i}, total: {total}")
-  # if total >= 100:
-  #   break
-  # if check_odd(i):
-  # if check_even(i) == False:
-  #   print(i)
-
-for i in range(1, 15, 3):
-  print(i)
-
-
-
-
-print("the end ")
-
-
-
-
-
-# main.py
-
-# Import everything from my_module
-# from my_module import *
-
-# # Now you can call all the functions and access variables directly
-# sum_result = add(10, 5)
-# pi_value = pi
-
-# print(f"Sum: {sum_result}")
-# print(f"Pi: {pi_value}")
+max_num_try = 3
+i = 0
+while i<=3:
+  num1 = enter_a_num("Enter first number ")
+  num2 = enter_a_num("Enter second number ")
+  print("Select operation:")
+  print("1. Add")
+  print("2. Subtract")
+  print("3. Multiply")
+  print("4. Divide")
+  operation = enter_op("ENter the opperation: ")
+    
+  
+if i>3:
+  print("Omg, you're dumb!")
+else:
+  print("Adios!")
