@@ -1,41 +1,20 @@
-# Error Handling
-# num = 10
-# num2 = 0
 
-# try:
-#   print(f"{num} divided by {num2} = {num/num2}")
-# except ZeroDivisionError as e:
-#   print(f"error: {e}")
-# else:
-#   print("some error")
+# def add(a, b):
+#   return a + b
   
-# print(f"{num} added by {num2} = {num + num2}")
-
-# define functions for 4 basic operation
-# each takes two arguments
-# ex: add(1,2) returns 3
-
-def add(a, b):
-  return a + b
+# def subtract(a, b):
+#   return a - b
   
-def subtract(a, b):
-  return a - b
+# def divide(a, b):
+#   return a / b
   
-def divide(a, b):
-  return a / b
-  
-def multiply(a, b):
-  return a + b
+# def multiply(a, b):
+#   return a + b
 
+# from my_moduel import *
+# from my_moduel import add, subtract, divide, multiply
+import my_moduel
 
-"""Ask the user to enter the numbers and desired operation. Our program performs the operation"""
-
-
-"""
-A func take a number input, and prompt user
-to enter again until a valid input
-Returns the integer
-"""
 def enter_a_num(message):
   while True:
     try:
@@ -50,69 +29,62 @@ def enter_op(message):
       if op in [1,2,3,4]:
         return op
     except:
-      print("Type operation")
+      print("Please enter 1/2/3/4:")
 
-def calculate84():
+def calculate(operation):
   while True:
+    
+      if operation == 1:
+        # result = add(num1, num2)
+        # print(result)
+        print(my_moduel.add(num1, num2))
+        break
+      elif operation == 2:
+        print(sth)
+        print(my_moduel.subtract(num1, num2))
+        break
+  
+      elif operation == 3:
+        print(my_moduel.multiply(num1, num2))
+        break
+  
+      elif operation == 4:
+        print(my_moduel.divide(num1, num2))
+        break
+      else:
+        print("please enter 1/2/3/4")
+   
+    
+max_num_try = 3
+i = 0
+while i<=3:
+    i += 1
+    num1 = enter_a_num("Enter first number: ")
+    num2 = enter_a_num("Enter second number: ")
+    print("Select operation:")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    operation = enter_op("Enter the operation: ")
     try:
-    if operation == 1:
-      print(add(num1, num2))
+      calculate(operation)
       break
-    elif operation == 2:
-      print(subtract(num1, num2))
-      break
-
-    elif operation == 3:
-      print(multiply(num1, num2))
-      break
-
-    elif operation == 4:
-      print(divide(num1, num2))
-      break
-    else:
-      print("please enter 1/2/3/4")
+    except ZeroDivisionError as e:
+      print(e)
+      # continue
+    except: 
+      print("an error occurred")
+      # continue
 
     
-  
+   # finally:
+   #    print("encounter an error!")
 
 
 """
 Returns False when it gets wrong input
 """
-def old_run():
-
-  if operation == '1':
-    print(add(num1, num2))
-    return True
-
-  elif operation == "2":
-    print(subtract(num1, num2))
-    return True
-
-  elif operation == "3":
-    print(multiply(num1, num2))
-    return True
-
-  elif operation == "4":
-    print(divide(num1, num2))
-    return True
-  else:
-    print("please enter 1/2/3/4")
-
-  i+=1
-  return False
-
-max_num_try = 3
-i = 0
-while i<=3:
-  num1 = enter_a_num("Enter first number ")
-  num2 = enter_a_num("Enter second number ")
-  print("Select operation:")
-  print("1. Add")
-  print("2. Subtract")
-  print("3. Multiply")
-  print("4. Divide")
-  operation = enter_op("ENter the opperation: ")
     
   
 if i>3:
