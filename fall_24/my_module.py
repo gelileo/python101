@@ -20,3 +20,15 @@ def divide(a, b):
 
 # You can also define variables, classes, or other Python constructs in modules
 pi = 3.14159
+
+# def add(a, b):
+#   return a + b
+
+# def subtract(a, b):
+#   return a - b
+
+# def divide(a, b):
+#   return a / b
+
+# def multiply(a, b):
+#   return a + b

@@ -1,93 +1,67 @@
+## Lesson 3 Fibonacci
+## a sequence in which each number is the sum of the two preceding ones. 
 
-# def add(a, b):
-#   return a + b
-  
-# def subtract(a, b):
-#   return a - b
-  
-# def divide(a, b):
-#   return a / b
-  
-# def multiply(a, b):
-#   return a + b
+# fib = [1,1,2,3]
+# n: the length of the returned sequence
+# return a list of Fibonacci numbers
+def fib(n, debug=False):
+  ret = [] # starting values
+  i,j = 0,1
 
-# from my_moduel import *
-# from my_moduel import add, subtract, divide, multiply
-import my_moduel
-
-def enter_a_num(message):
-  while True:
-    try:
-       return float(input(message))
-    except ValueError:
-      print("Invalid input. Please try again")
-
-def enter_op(message):
-  while True:
-    try:
-      op = int(input(message))
-      if op in [1,2,3,4]:
-        return op
-    except:
-      print("Please enter 1/2/3/4:")
-
-def calculate(operation):
-  while True:
+  if debug:
+    print(f"Entering Loop: {ret}. i:1, j:1")
+  for a in range(n): # do it for n numbers
+    ret.append(j)
+    j += i # new j is old j + old i
+    i = j - i # new i is old j or new j - old i
+    if debug:
+      print()
+      print(f"Iteration({a}): ")
+      print(f"{ret}, i:{i}, j:{j})")
     
-      if operation == 1:
-        # result = add(num1, num2)
-        # print(result)
-        print(my_moduel.add(num1, num2))
-        break
-      elif operation == 2:
-        print(sth)
-        print(my_moduel.subtract(num1, num2))
-        break
-  
-      elif operation == 3:
-        print(my_moduel.multiply(num1, num2))
-        break
-  
-      elif operation == 4:
-        print(my_moduel.divide(num1, num2))
-        break
-      else:
-        print("please enter 1/2/3/4")
-   
-    
-max_num_try = 3
-i = 0
-while i<=3:
-    i += 1
-    num1 = enter_a_num("Enter first number: ")
-    num2 = enter_a_num("Enter second number: ")
-    print("Select operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
-    operation = enter_op("Enter the operation: ")
-    try:
-      calculate(operation)
-      break
-    except ZeroDivisionError as e:
-      print(e)
-      # continue
-    except: 
-      print("an error occurred")
-      # continue
+  return ret[:] # return the list
 
-    
-   # finally:
-   #    print("encounter an error!")
+# print("Here's my Fibonacci Numbers:")
+# print(fib(0))
 
 
-"""
-Returns False when it gets wrong input
-"""
-    
+test_cases = [[],
+            [1],
+            [1,1],
+            [1,1,2],
+            [1,1,2,3],
+            [1,1,2,3,5],
+            [1,1,2,3,5,8]]
+
+def testFib(n):
+  if fib(n) == test_cases[n]:
+    print(f"fib({n}) passed!")
+  else:
+    print(f"fib({n}) failed!")
+
+def test():
+  testFib(0)
+  testFib(1)
+  testFib(2)
+  testFib(5)
+  testFib(6)
+
+test()
+
+print(fib(5))
+def review_list():
+  list = [0,1,2,3,4,5]
   
-if i>3:
-  print("Omg, you're dumb!")
-else:
-  print("Adios!")
+  print(list[0]) # print the first element of the list
+  print(list[0:2]) # print elements in a range
+  
+  print(list[-1]) # print last element
+  
+  list.remove(5) # remove the element with value 5
+  print(list)
+  
+  list.append(5) # append an element with value 5
+  print(list)
+  
+  print(list.pop())  # removes and returns the last element
+  print(list)
