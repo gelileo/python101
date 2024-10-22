@@ -1,7 +1,8 @@
 import pygame
 from layouts import *
 
-BRICK_COLOR = (201, 143, 95)
+# BRICK_COLOR = (201, 143, 95)
+BRICK_COLOR = (170, 74, 68)
 
 
 def brick():

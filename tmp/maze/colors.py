@@ -8,3 +8,10 @@ BRICK_COLOR = (201, 143, 95)
 GRID_COLOR = (162, 208, 224)
 GRAY = (200, 200, 200, 128)
 DARK_GRAY = (128, 128, 128)
+LIGHT_GRAY = (230, 230, 230)
+BUTTON_COLORS = {
+    "normal": GRAY,
+    "hover": DARK_GRAY,
+    "text": BLUE,
+    "hove_text": WHITE,
+}
