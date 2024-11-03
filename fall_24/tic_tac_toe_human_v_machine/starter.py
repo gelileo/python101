@@ -253,13 +253,9 @@ def redraw(mouse_pos=[0, 0]):
     draw_board()
     draw_status()
     draw_button(mouse_pos)
-    # pygame.display.flip()
 
 
 # Init the screen
-# screen.fill(WHITE)
-# draw_board()
-# pygame.display.flip()
 running = True
 game_over = False
 # Main loop
