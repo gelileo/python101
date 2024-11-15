@@ -8,6 +8,7 @@ from colors import WHITE, BLUE, BLACK, GRAY, DARK_GRAY
 from drawings import redraw, screen_height, screen_width, cell_size, button_rect
 
 # Add the directory containing the module to sys.path
+sys.path.append(os.path.join(os.path.dirname(__file__), "../lib"))
 from particle import Particle, draw_particles, celebration
 
 # Initialize Pygame
