@@ -1,114 +1,102 @@
-## Lesson 4 Fibonacci with Tests
-## a sequence in which each number is the sum of the two preceding ones.
+import pygame
+import sys
+import random
+import math
+import os
+from game_logic import check_win, check_tie
+from colors import WHITE, BLUE, BLACK, GRAY, DARK_GRAY
+from drawings import redraw, screen_height, screen_width, cell_size, button_rect
+
+# Add the directory containing the module to sys.path
+sys.path.append(os.path.join(os.path.dirname(__file__), "../lib"))
+from particle import Particle, draw_particles, celebration
+
+# Initialize Pygame
+pygame.init()
 
 
-# The Fibonacci sequence is a series of numbers where each number is
-# the sum of the two preceding ones, starting from 0 and 1.
-# Mathematically, it is defined by the recurrence relation:
-# F(n) = F(n-1) + F(n-2)
-# with initial conditions  F(0) = 0  and  F(1) = 1 .
-#
-def fib(n, debug=False):
-    """
-    Generate a Fibonacci sequence of length n. Ex: fib = [0, 1,1,2,3] with n=5
-    Args:
-        n: the length of the returned sequence
-        debug: print debug information
-    Returns: a list of Fibonacci numbers
-    """
-    ret = [0]  # starting values
-    i, j = 0, 1
+status = "Player X's turn"
 
-    if debug:
-        print(f"Entering Loop: {ret}. i:0, j:1")
-    for a in range(n - 1):  # do it for n numbers
-        ret.append(j)
-        j += i  # new j is old j + old i
-        i = j - i  # new i is old j or new j - old i
-        if debug:
-            print()
-            print(f"Iteration({a}): ")
-            print(f"{ret}, i:{i}, j:{j})")
+# Variable to keep track of current player
+current_player = "X"
 
-    return ret[:]  # return the list
+# Global list to store particles
+particles = []
+
+# Define the game board
+board = [["" for _ in range(3)] for _ in range(3)]
+
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("TIC TAC TOE")
 
 
-test_cases = [
-    [],
-    [0],
-    [0, 1],
-    [0, 1, 1],
-    [0, 1, 1, 2],
-    [0, 1, 1, 2, 3],
-    [0, 1, 1, 2, 3, 5],
-    [0, 1, 1, 2, 3, 5, 8],
-]
+def reset_game(mouse_pos):
+    global board, current_player, game_over, status
+    board = [["" for _ in range(3)] for _ in range(3)]
+    current_player = "X"
+    game_over = False
+    status = "Player X's turn"
+    redraw(screen, board, status, mouse_pos)
 
 
-def test_fib(n, func=fib):
-    if func(n) == test_cases[n]:
-        print(f"fib({n}) passed!")
-    else:
-        print(f"fib({n}) failed!")
+# Function to get the cell position from mouse click
+def get_cell_position(mouse_pos):
+    row = mouse_pos[1] // cell_size
+    col = mouse_pos[0] // cell_size
+    return row, col
 
 
-def test():
-    test_fib(0)
-    test_fib(1)
-    test_fib(2)
-    test_fib(3)
-    test_fib(4)
-    test_fib(5)
-    test_fib(6)
+# Switch player
+def switch_player():
+    global current_player
+    global status
+    current_player = "O" if current_player == "X" else "X"
+    # print(f"Now waiting for player {current_player}:")
+    status = f"Player {current_player}'s turn"
 
 
-test()
+clock = pygame.time.Clock()
 
 
-def review_list():
-    my_list = [0, 1, 2, 3, 4, 5]
+running = True
+game_over = False
+# Main loop
+while running:
+    mouse_pos = pygame.mouse.get_pos()  # Get mouse position continuously
 
-    print(my_list[0])  # print the first element of the list
-    print(my_list[0:2])  # print elements in a range
+    # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if button_rect.collidepoint(mouse_pos):
+                reset_game(mouse_pos)
+            else:
+                row, col = get_cell_position(mouse_pos)
+                # print("Clicked cell:", row, col)
+                if not game_over and board[row][col] == "":
+                    board[row][col] = current_player
+                    if check_win(board, current_player):
+                        game_over = True
+                        status = f"Game Over! The winner is {current_player}"
+                        celebration(mouse_pos[0], mouse_pos[1], particles)
+                        break
 
-    print(my_list[-1])  # print last element
+                    if check_tie(board):
+                        status = "It's a tie!"
+                        game_over = True
+                        # redraw(mouse_pos)
+                        break
 
-    my_list.remove(5)  # remove the element with value 5
-    print(my_list)
+                    switch_player()
 
-    my_list.append(5)  # append an element with value 5
-    print(my_list)
+    redraw(screen, board, status, mouse_pos)
+    particles = draw_particles(particles, screen)
 
-    print(my_list.pop())  # removes and returns the last element
-    print(my_list)
-
-
-# def fib_simple(n):
-#     if n == 0:
-#         return []
-#     elif n == 1:
-#         return [0]
-
-#     fib = [0, 1]
-#     while len(fib) < n:
-#         fib.append(fib[-1] + fib[-2])
-#     return fib
+    pygame.display.flip()
+    clock.tick(30)
 
 
-# def fibonacci(n):
-#     """
-#     recursive version of the fibonacci function
-#     Args:
-#         n: the length of the returned sequence
-#     Returns: a list of Fibonacci numbers
-#     """
-#     if n == 0:
-#         return []
-#     elif n == 1:
-#         return [0]
-#     elif n == 2:
-#         return [0, 1]
-#     else:
-#         fib = fibonacci(n - 1)
-#         fib.append(fib[-1] + fib[-2])
-#     return fib
+# Quit Pygame
+pygame.quit()
+sys.exit()
