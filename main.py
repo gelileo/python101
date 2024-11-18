@@ -6,6 +6,7 @@ import os
 from game_logic import check_win, check_tie
 from colors import WHITE, BLUE, BLACK, GRAY, DARK_GRAY
 from drawings import redraw, screen_height, screen_width, cell_size, button_rect
+from computer import computer_move
 
 # Add the directory containing the module to sys.path
 from particle import Particle, draw_particles, celebration
@@ -87,7 +88,8 @@ while running:
                         # redraw(mouse_pos)
                         break
 
-                    switch_player()
+                    # switch_player()
+                    computer_move(board)
 
     redraw(screen, board, status, mouse_pos)
     particles = draw_particles(particles, screen)
