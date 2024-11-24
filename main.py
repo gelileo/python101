@@ -54,7 +54,28 @@ def switch_player():
     # print(f"Now waiting for player {current_player}:")
     status = f"Player {current_player}'s turn"
 
+def check_game(mouse_pos, desc):
+    
+    global current_player
+    global status
+    global board
+    global particles, game_over
+    print(f"Entering check_game for {desc} move")
+    if check_win(board, current_player):
+        game_over = True
+        status = f"Game Over! The winner is {current_player}"
+        celebration(mouse_pos[0], mouse_pos[1], particles)
+        return True
 
+    if check_tie(board):
+        status = "It's a tie!"
+        game_over = True
+        # redraw(mouse_pos)
+        return True
+    print(board)
+    print("Continue")
+    return False
+            
 clock = pygame.time.Clock()
 
 
@@ -73,23 +94,18 @@ while running:
                 reset_game(mouse_pos)
             else:
                 row, col = get_cell_position(mouse_pos)
-                # print("Clicked cell:", row, col)
                 if not game_over and board[row][col] == "":
                     board[row][col] = current_player
-                    if check_win(board, current_player):
-                        game_over = True
-                        status = f"Game Over! The winner is {current_player}"
-                        celebration(mouse_pos[0], mouse_pos[1], particles)
-                        break
 
-                    if check_tie(board):
-                        status = "It's a tie!"
-                        game_over = True
-                        # redraw(mouse_pos)
+                
+                    # print("Clicked cell:", row, col)
+                    if check_game(mouse_pos, "player"):
                         break
-
-                    # switch_player()
+                    switch_player()
                     computer_move(board)
+                    if check_game(mouse_pos, "computer"):
+                        break
+                    switch_player()
 
     redraw(screen, board, status, mouse_pos)
     particles = draw_particles(particles, screen)
