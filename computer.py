@@ -9,9 +9,9 @@
 from game_logic import *
 
 import random
-def computer_move(board):
-  if not winning_move(board):
-    if not center_move(board):
+def computer_move(board, player):
+  if not winning_move(board, player):
+    if not blocking_move(board, player):
       if not corner_move(board):
         random_move(board)
   
@@ -68,7 +68,16 @@ def board_copy(board):
 
   return ret
 
-def winning_move(board):
+def winning_move(board, player):
+  res = try_winning_move(board, player)
+  if res == None:
+    return False
+  else:
+    row, col = res
+    board[row][col] = player
+    return True
+    
+def try_winning_move(board, player):
   # loop through all the available
   # make tentative move
   # check for win
@@ -76,10 +85,35 @@ def winning_move(board):
     for col in range(3):
       tmp_board = board_copy(board)
       if is_available(board, row, col):
-        tmp_board[row][col] = "O"
-        if check_win(tmp_board, "O"):
-          board[row][col] = "O"
+        tmp_board[row][col] = player
+        if check_win(tmp_board, player):
+          # board[row][col] = player
+          return (row, col)
+  return None
+
+def blocking_move(board, player):
+  other_player = "X" if player == "O" else "O"
+  res = try_winning_move(board, other_player)
+  if res == None:
+    return False
+  else:
+    row, col = res
+    board[row][col] = player
+    return True
+
+  
+    
+    
+
+  
+def blocking_move_0(board, player):
+  other_player = "X" if player == "O" else "O" # Get other player
+  for row in range(3):
+    for col in range(3):
+      if board[row][col] == "": # If possible move for player
+        board2 = board_copy(board) # Make a copy of the board
+        board2[row][col] = other_player
+        if check_win(board2, other_player): #If its win
+          board[row][col] = player
           return True
   return False
-        
-        

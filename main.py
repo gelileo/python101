@@ -102,7 +102,7 @@ while running:
                     if check_game(mouse_pos, "player"):
                         break
                     switch_player()
-                    computer_move(board)
+                    computer_move(board, "O")
                     if check_game(mouse_pos, "computer"):
                         break
                     switch_player()
