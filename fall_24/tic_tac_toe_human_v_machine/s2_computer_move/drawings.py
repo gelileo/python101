@@ -1,9 +1,10 @@
 import pygame
 import math
 from colors import BLUE, BLACK, GRAY, DARK_GRAY, WHITE
+import menu
 
 
-size_factor = 0.75
+size_factor = 1.5
 
 
 def factored_size(value):
@@ -150,3 +151,24 @@ def redraw(screen, board, status, mouse_pos=[0, 0]):
     draw_status(status, screen)
     draw_button(mouse_pos, screen)
     draw_cursor(mouse_pos)
+
+
+def draw_menu(screen, mouse_pos):
+    buttons = menu.game_level_buttons(
+        screen_width, screen_height, button_width, button_height
+    )
+    screen.fill(WHITE)
+
+    for button in buttons:
+        button_rect = button["rect"]
+        if button_rect.collidepoint(mouse_pos):
+            button_color = DARK_GRAY  # Mouse is hovering over the button
+            button_text_color = WHITE
+        else:
+            button_color = GRAY  # Mouse is not hovering over the button
+            button_text_color = BLUE
+
+        pygame.draw.rect(screen, button_color, button_rect, border_radius=10)
+        button_text = button_font.render(button["label"], True, button_text_color)
+        text_rect = button_text.get_rect(center=button_rect.center)
+        screen.blit(button_text, text_rect)
