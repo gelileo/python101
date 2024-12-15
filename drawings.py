@@ -1,7 +1,7 @@
 import pygame
 import math
 from colors import BLUE, BLACK, GRAY, DARK_GRAY, WHITE
-from menu import menu_button_rect
+from menu import game_level_buttons
 
 size_factor = 0.75
 
@@ -153,7 +153,7 @@ def redraw(screen, board, status, mouse_pos=[0, 0]):
 
 
 def draw_levels(screen, mouse_pos):
-    buttons = menu_button_rect(screen_width,
+    buttons = game_level_buttons(screen_width,
         screen_height,
         button_width,
         button_height)
@@ -164,6 +164,6 @@ def draw_levels(screen, mouse_pos):
         button_rect = button["rect"]
 
         pygame.draw.rect(screen, button_color, button_rect, border_radius=10)
-        button_text = button_font.render(button["level"], True, button_text_color)
+        button_text = button_font.render(button["label"], True, button_text_color)
         text_rect = button_text.get_rect(center=button_rect.center)
         screen.blit(button_text, text_rect)

@@ -1,31 +1,59 @@
 import pygame
 
-# button_rect = pygame.Rect(button_x, button_y, button_width, button_height)
-
-def menu_button_rect(screen_width,
-                screen_height,
+def game_level_buttons(screen_width, screen_height, button_width, button_height):
+    """
+    Creates button data for three game levels (Easy, Hard, Pro) centered vertically on the screen.
+  
+    Args:
+        screen_width (int): The width of the screen.
+        screen_height (int): The height of the screen.
+        button_width (int): The width of each button.
+        button_height (int): The height of each button.
+  
+    Returns:
+        list[dict]: A list of dictionaries, each containing:
+            - 'label' (str): The label for the button (e.g., "Easy").
+            - 'rect' (pygame.Rect): A pygame rectangle defining the button's position and size.
+    """
+    button_margin = button_height  # Space between buttons
+    total_height = 3 * button_height + 2 * button_margin
+    start_y = (screen_height - total_height) // 2
+    x = (screen_width - button_width) // 2
+    return [
+        {
+            "label": "Easy",
+            "rect": pygame.Rect(
+                x, start_y, button_width, button_height
+            ),
+        },
+        {
+            "label": "Hard",
+            "rect": pygame.Rect(
+                x,
+                start_y + button_height + button_margin,
                 button_width,
-                button_height):
-  margin = button_height
-  total_height = button_height * 3 + margin * 2
-  
-  x = (screen_width - button_width) // 2
-  start_y = (screen_height - total_height) // 2
+                button_height,
+            ),
+        },
+        {
+            "label": "Pro",
+            "rect": pygame.Rect(
+                x,
+                start_y + 2 * (button_height + button_margin),
+                button_width,
+                button_height,
+            ),
+        },
+    ]
 
-  rect1 = pygame.Rect(x, start_y, button_width, button_height)
-  rect2 = pygame.Rect(x, start_y + button_height + margin, button_width, button_height)
-  rect3 = pygame.Rect(x, start_y + button_height * 2 + margin * 2, button_width, button_height)
 
-  return {
-    "Easy": {
-      "level": "Easy",
-      "rect": rect1},
-    "Hard":{
-      "level": "Hard",
-      "rect": rect2},
-    "Pro": {
-      "level": "Pro",
-      "rect": rect3}
-  }
-
-  
+def clicked_level(mouse_pos, buttons):
+    """
+    Args:
+        mouse_pos(tuple): x,y
+        buttons: list of button data returned by game_level_buttons
+    Returns:
+        str: the selected level or None
+    """
+    # Put your implementation here
+    return None

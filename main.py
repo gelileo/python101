@@ -5,7 +5,7 @@ import math
 import os
 from game_logic import check_win, check_tie
 from colors import WHITE, BLUE, BLACK, GRAY, DARK_GRAY
-from drawings import redraw, screen_height, screen_width, cell_size, button_rect
+from drawings import redraw, screen_height, screen_width, cell_size, button_rect, draw_levels
 from computer import computer_move
 
 # Add the directory containing the module to sys.path
@@ -78,6 +78,8 @@ def check_game(mouse_pos, desc):
             
 clock = pygame.time.Clock()
 
+view = "menu" # current view on screen
+level = "Easy" # current level
 
 running = True
 game_over = False
@@ -106,9 +108,11 @@ while running:
                     if check_game(mouse_pos, "computer"):
                         break
                     switch_player()
-
-    redraw(screen, board, status, mouse_pos)
-    particles = draw_particles(particles, screen)
+    if view == "menu":
+        draw_levels(screen, mouse_pos)
+    else:
+        redraw(screen, board, status, mouse_pos)
+        particles = draw_particles(particles, screen)
 
     pygame.display.flip()
     clock.tick(30)
