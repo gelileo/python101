@@ -4,7 +4,7 @@ from colors import BLUE, BLACK, GRAY, DARK_GRAY, WHITE
 import menu
 
 
-size_factor = 1.5
+size_factor = 1
 
 
 def factored_size(value):
