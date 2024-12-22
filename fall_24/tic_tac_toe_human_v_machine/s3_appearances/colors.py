@@ -24,10 +24,10 @@ class Colors:
             self.CIRCLE_PULSE_COLOR = (255, 150, 150)  # Light red
             self.CROSS_PULSE_COLOR = (150, 150, 150)  # Light gray
         else:
-            self.BG_COLOR = (10, 10, 30)  # Dark blue background
-            self.LINE_COLOR = (50, 150, 255)  # Glowing blue for grid
-            self.CIRCLE_COLOR = (200, 0, 0)  # Glowing red for O
-            self.CROSS_COLOR = (0, 200, 0)  # Glowing green for X
+            self.BG_COLOR = (10, 10, 30)
+            self.LINE_COLOR = (50, 150, 255)
+            self.CIRCLE_COLOR = (200, 0, 0)
+            self.CROSS_COLOR = (0, 200, 0)
             self.BUTTON_COLOR = (50, 50, 50)
             self.BUTTON_TEXT_COLOR = (200, 200, 200)
             self.BUTTON_COLOR_HOVER = (100, 100, 100)
