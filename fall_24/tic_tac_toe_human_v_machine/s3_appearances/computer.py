@@ -37,24 +37,39 @@ def computer_move(board, player, level, logger=None):
 
 
 def make_computer_mov_easy(board):
-    """
-    Make a move for the computer player.
-    """
-    # put your code here
+    if not center_move(board):
+        if not corner_move(board):
+            random_move(board)
 
 
 def make_computer_move_hard(board, player):
-    """
-    Make a move for the computer player.
-    """
-    # put your code here
+    if not winning_move(board, player):
+        if not center_move(board):
+            if not corner_move(board):
+                if not blocking_move(board, player):
+                    random_move(board)
 
 
 def make_computer_move_pro(board, player):
-    """
-    Make a move for the computer player.
-    """
-    # put your code here
+    if not winning_move(board, player):
+        # log("no winning move")
+        if not blocking_move(board, player):
+            # log("no blocking move")
+            if not center_move(board):
+                # log("no center move")
+                if not fork_move(board, player):
+                    if not blocking_fork_move(board, player):
+                        # if center is 'O'
+                        if board[1][1] == "O":
+                            # log("I have center piece")
+                            if not edge_move(board):
+                                # log("no edge")
+                                first_awailable_move(board)
+                        else:
+                            # log("I do not have center piece")
+                            if not corner_move(board):
+                                # log("no corner move")
+                                first_awailable_move(board)
 
 
 def make_move(board, row, col, player):

@@ -36,7 +36,14 @@ def game_level_buttons(screen_width, screen_height, button_width, button_height)
 
 def clicked_level(mouse_pos, buttons):
     """
-    Check if a button was clicked"""
+    Args:
+        mouse_pos(tuple): x,y
+        buttons: list of button data returned by game_level_buttons
+    Returns:
+        str: the selected level or None
+    """
+    # Put your implementation here
     for button in buttons:
-        # put your code here
+        if button["rect"].collidepoint(mouse_pos):
+            return button["label"]
     return None
