@@ -56,4 +56,7 @@ def clicked_level(mouse_pos, buttons):
         str: the selected level or None
     """
     # Put your implementation here
+    for button in buttons:
+        if button["rect"].collidepoint(mouse_pos):
+            return button["label"]
     return None

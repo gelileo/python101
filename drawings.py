@@ -162,7 +162,13 @@ def draw_levels(screen, mouse_pos):
 
     for button in buttons:
         button_rect = button["rect"]
-
+        if button_rect.collidepoint(mouse_pos):
+            button_color = DARK_GRAY  # Mouse is hovering over the button
+            button_text_color = WHITE
+        else:
+            button_color = GRAY  # Mouse is not hovering over the button
+            button_text_color = BLUE
+            
         pygame.draw.rect(screen, button_color, button_rect, border_radius=10)
         button_text = button_font.render(button["label"], True, button_text_color)
         text_rect = button_text.get_rect(center=button_rect.center)

@@ -5,8 +5,11 @@ import math
 import os
 from game_logic import check_win, check_tie
 from colors import WHITE, BLUE, BLACK, GRAY, DARK_GRAY
-from drawings import redraw, screen_height, screen_width, cell_size, button_rect, draw_levels
+from drawings import redraw, screen_height, screen_width, cell_size, button_rect, draw_levels, button_width, button_height
+
 from computer import computer_move
+from menu import game_level_buttons, clicked_level
+
 
 # Add the directory containing the module to sys.path
 from particle import Particle, draw_particles, celebration
@@ -29,14 +32,29 @@ board = [["" for _ in range(3)] for _ in range(3)]
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("TIC TAC TOE")
 
+menu_buttons = game_level_buttons(screen_width, screen_height,button_width, button_height)
 
-def reset_game(mouse_pos):
+
+
+def show_menu(mouse_pos):
+    global view
+    view = "menu"
+    draw_levels(screen, mouse_pos)
+
+
+def show_game(mouse_pos):
+    global view
+    view = "game"
+
     global board, current_player, game_over, status
     board = [["" for _ in range(3)] for _ in range(3)]
     current_player = "X"
     game_over = False
     status = "Player X's turn"
     redraw(screen, board, status, mouse_pos)
+
+def reset_game(mouse_pos):
+    show_menu(mouse_pos)
 
 
 # Function to get the cell position from mouse click
@@ -92,22 +110,29 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if button_rect.collidepoint(mouse_pos):
-                reset_game(mouse_pos)
+            if view == "menu":
+                # check 
+                level = clicked_level(mouse_pos,menu_buttons)
+                # print(f"clicked level: {level}")
+                if level:
+                    show_game(mouse_pos)
             else:
-                row, col = get_cell_position(mouse_pos)
-                if not game_over and board[row][col] == "":
-                    board[row][col] = current_player
-
-                
-                    # print("Clicked cell:", row, col)
-                    if check_game(mouse_pos, "player"):
-                        break
-                    switch_player()
-                    computer_move(board, "O")
-                    if check_game(mouse_pos, "computer"):
-                        break
-                    switch_player()
+                if button_rect.collidepoint(mouse_pos):
+                    reset_game(mouse_pos)
+                else:
+                    row, col = get_cell_position(mouse_pos)
+                    if not game_over and board[row][col] == "":
+                        board[row][col] = current_player
+    
+                    
+                        # print("Clicked cell:", row, col)
+                        if check_game(mouse_pos, "player"):
+                            break
+                        switch_player()
+                        computer_move(board, "O")
+                        if check_game(mouse_pos, "computer"):
+                            break
+                        switch_player()
     if view == "menu":
         draw_levels(screen, mouse_pos)
     else:

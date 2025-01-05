@@ -217,10 +217,13 @@ def pulse_winning_symbols(screen, cells, symbol, frame_count):
 
 
 def flash_background(screen):
+    """
+    Flashes the background with a bright yellow color.
+    """
     for _ in range(2):
-        screen.fill((255, 255, 0, 0.5))  # Bright yellow
+        screen.fill((255, 255, 0, 0.5))
         pygame.display.update()
         pygame.time.delay(200)
-        screen.fill(colors.BG_COLOR)  # Reset to normal background
+        screen.fill(colors.BG_COLOR)
         pygame.display.update()
         pygame.time.delay(200)
