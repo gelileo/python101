@@ -9,7 +9,7 @@ from drawings import redraw, screen_height, screen_width, cell_size, button_rect
 
 from computer import computer_move
 from menu import game_level_buttons, clicked_level
-
+from stats import update_game_stats, load_game_stats
 
 # Add the directory containing the module to sys.path
 from particle import Particle, draw_particles, celebration
@@ -33,7 +33,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("TIC TAC TOE")
 
 menu_buttons = game_level_buttons(screen_width, screen_height,button_width, button_height)
-
 
 
 def show_menu(mouse_pos):
@@ -83,17 +82,21 @@ def check_game(mouse_pos, desc):
         game_over = True
         status = f"Game Over! The winner is {current_player}"
         celebration(mouse_pos[0], mouse_pos[1], particles)
+        if current_player == "X":
+            update_game_stats(game_stats, level, "win")
+        else:
+            update_game_stats(game_stats, level, "lose")
         return True
 
     if check_tie(board):
         status = "It's a tie!"
         game_over = True
-        # redraw(mouse_pos)
+        update_game_stats(game_stats, level, "draw")
         return True
     print(board)
     print("Continue")
     return False
-            
+
 clock = pygame.time.Clock()
 
 view = "menu" # current view on screen
@@ -101,6 +104,8 @@ level = "Easy" # current level
 
 running = True
 game_over = False
+
+game_stats = load_game_stats()
 # Main loop
 while running:
     mouse_pos = pygame.mouse.get_pos()  # Get mouse position continuously
