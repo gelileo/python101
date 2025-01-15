@@ -1,4 +1,4 @@
-#!/nix/store/h8mbpm859q8bcdz2dy4cxbac0y5lj5ab-python-wrapped-0.1.0/bin/python3
+#!/nix/store/ydajxp8cp7zncacwnya5r0d87a76pcv1-python-wrapped-0.1.0/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

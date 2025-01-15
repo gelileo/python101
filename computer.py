@@ -10,32 +10,44 @@ from game_logic import *
 import random
 
 
-def computer_move(board, player):
-    if not winning_move(board, player):
-        if not blocking_move(board, player):
-            if not corner_move(board):
-                random_move(board)
+def computer_move(board, player, level):
+    """
+    Make a move for player using strategies based on the level
+    """  
+    if level == "Easy":
+      make_computer_move_easy(board, player)
+    elif level == "Hard":
+      make_computer_move_hard(board, player)
+    else:
+        make_computer_move_pro(board, player)
+    
 
 
-def make_computer_mov_easy(board):
+def make_computer_move_easy(board,player):
     """
     Make a move for the computer player.
     """
-    # put your code here
+    if not winning_move(board, player):
+        random_move(board)
 
 
 def make_computer_move_hard(board, player):
     """
     Make a move for the computer player.
     """
-    # put your code here
+    if not winning_move(board, player):
+        if not corner_move(board):
+            random_move(board)
 
 
 def make_computer_move_pro(board, player):
     """
     Make a move for the computer player.
     """
-    # put your code here
+    if not winning_move(board, player):
+        if not blocking_move(board, player):
+            if not corner_move(board):
+                random_move(board)
 
 
 def random_move(board):
