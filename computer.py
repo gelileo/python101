@@ -5,7 +5,13 @@
 # - edge move
 # - winning move
 # - blocking moving
-from game_logic import *
+from game_logic import (
+    check_win,
+    check_tie,
+    two_in_a_row,
+    two_in_a_column,
+    two_in_a_diagonal,
+)
 
 import random
 
@@ -13,17 +19,16 @@ import random
 def computer_move(board, player, level):
     """
     Make a move for player using strategies based on the level
-    """  
+    """
     if level == "Easy":
-      make_computer_move_easy(board, player)
+        make_computer_move_easy(board, player)
     elif level == "Hard":
-      make_computer_move_hard(board, player)
+        make_computer_move_hard(board, player)
     else:
         make_computer_move_pro(board, player)
-    
 
 
-def make_computer_move_easy(board,player):
+def make_computer_move_easy(board, player):
     """
     Make a move for the computer player.
     """
@@ -36,8 +41,7 @@ def make_computer_move_hard(board, player):
     Make a move for the computer player.
     """
     if not winning_move(board, player):
-        if not corner_move(board):
-            random_move(board)
+        random_move(board)
 
 
 def make_computer_move_pro(board, player):
@@ -45,9 +49,11 @@ def make_computer_move_pro(board, player):
     Make a move for the computer player.
     """
     if not winning_move(board, player):
-        if not blocking_move(board, player):
-            if not corner_move(board):
-                random_move(board)
+        random_move(board)
+
+
+def make_move(board, row, col, player):
+    board[row][col] = player
 
 
 def random_move(board):
@@ -147,3 +153,48 @@ def blocking_move_0(board, player):
                     board[row][col] = player
                     return True
     return False
+
+
+def fork_move(board, player="O"):
+    res = try_fork_move(board, player)
+    if res == None:
+        return False
+    else:
+        row, col = res
+        make_move(board, row, col, player)
+        return True
+
+
+def blocking_fork_move(board, player="O"):
+    other_player = "X" if player == "O" else "O"
+    res = try_fork_move(board, other_player)
+    if res == None:
+        return False
+    else:
+        row, col = res
+        make_move(board, row, col, player)
+        return True
+
+
+def try_fork_move(board, player="O"):
+    """
+    Check if the player can create a fork.
+    Returns: a move (Int, Int) for the computer player. None if no fork move is possible
+    """
+    for row in range(3):
+        for col in range(3):
+            if is_available(board, row, col):
+                tmp_board = board_copy(board)
+                tmp_board[row][col] = player
+                winning_moves = 0
+                if two_in_a_row(tmp_board, player):
+                    winning_moves += 1
+                if two_in_a_column(tmp_board, player):
+                    winning_moves += 1
+                if two_in_a_diagonal(tmp_board, player):
+                    winning_moves += 1
+
+                if winning_moves > 1:
+                    return (row, col)
+
+    return None

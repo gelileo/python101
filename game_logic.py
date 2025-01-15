@@ -38,3 +38,40 @@ def check_win(board, current_player):
         return True
     else:
         return False
+
+
+def two_in_a_row(board, player="O"):
+    """
+    Check if the player has two in a row.
+    """
+    for row in range(3):
+        if board[row].count(player) == 2 and "" in board[row]:
+            return True
+
+    return False
+
+
+def two_in_a_column(board, player="O"):
+    """
+    Check if the player has two in a column.
+    """
+    for col in range(3):
+        column = [board[row][col] for row in range(3)]
+        if column.count(player) == 2 and "" in column:
+            return True
+    return False
+
+
+def two_in_a_diagonal(board, player="O"):
+    """
+    Check if the player has two in a diagonal.
+    """
+    diagonal1 = [board[i][i] for i in range(3)]  # \ diagonal
+    if diagonal1.count(player) == 2 and "" in diagonal1:
+        return True
+
+    diagonal2 = [board[i][2 - i] for i in range(3)]  # / diagonal
+    if diagonal2.count(player) == 2 and "" in diagonal2:
+        return True
+
+    return False
