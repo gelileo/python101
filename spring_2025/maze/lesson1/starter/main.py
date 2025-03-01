@@ -1,4 +1,3 @@
-
 import pygame
 import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE, FPS

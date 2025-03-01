@@ -10,7 +10,7 @@ YELLOW = (255, 255, 0)
 
 # For your maze
 WALL_COLOR = BLACK
-WALL_COLOR = (43, 13, 13)
+# WALL_COLOR = (43, 13, 13)
 UNEXPLORED_COLOR = (115, 119, 255)  # Light blue
 PATH_COLOR = (200, 200, 100)  # Light highlight
 START_COLOR = RED
