@@ -356,12 +356,16 @@ def main():
 
     if mode == "game":
         # Generate a random solvable puzzle
-        puzzle = generate_solvable_puzzle()
-        # Save to file
-        save_puzzle_data(puzzle, constants.INITIAL_DATA_FILE)
-        print(f"Puzzle generated and saved to {constants.INITIAL_DATA_FILE}")
-        run_game(puzzle)
-
+        if len(sys.argv) < 3:
+            puzzle = generate_solvable_puzzle()
+            # Save to file
+            save_puzzle_data(puzzle, constants.INITIAL_DATA_FILE)
+            print(f"Puzzle generated and saved to {constants.INITIAL_DATA_FILE}")
+            run_game(puzzle)
+        else:
+            data_file = sys.argv[2]
+            puzzle = load_puzzle_data(data_file)
+            run_game(puzzle)
     elif mode == "solve":
         if len(sys.argv) < 3:
             print("Usage: python sliding_puzzle.py solve <data_file.json>")
