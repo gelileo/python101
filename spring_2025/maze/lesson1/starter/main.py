@@ -1,8 +1,14 @@
 import pygame
 import sys
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE, FPS
+from constants import CELL_SIZE, FPS
 import colors
 from maze_data import MAZE1, START_POSITION, END_POSITION
+
+# Calculate SCREEN_WIDTH and SCREEN_HEIGHT dynamically
+NUM_ROWS = 7  # Replace with actual value or configuration
+NUM_COLS = 12  # Replace with actual value or configuration
+SCREEN_WIDTH = NUM_COLS * CELL_SIZE
+SCREEN_HEIGHT = NUM_ROWS * CELL_SIZE
 
 
 def draw_maze(

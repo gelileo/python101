@@ -3,12 +3,35 @@
 import pygame
 import sys
 import argparse
+import json
 from typing import Dict, Tuple
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE, FPS
+from constants import CELL_SIZE, FPS
 from colors import WALL_COLOR, UNEXPLORED_COLOR, PATH_COLOR, START_COLOR, END_COLOR, GRID_COLOR
 from maze_data import MAZE1, START_POSITION, END_POSITION
 from algorithms.bfs import bfs
 from algorithms.dfs import dfs
+
+def load_config(file_name="config.json"):
+    """Load configuration settings from a JSON file."""
+    try:
+        with open(file_name, "r") as f:
+            return json.load(f)
+    except (IOError, json.JSONDecodeError) as e:
+        print(f"Error loading configuration: {e}")
+        return {}
+
+# Load configuration at the start of the program
+config = load_config()
+CELL_SIZE = config.get("cell_size", CELL_SIZE) * 2
+FPS = config.get("fps", FPS)
+
+# Load NUM_ROWS and NUM_COLS dynamically from the configuration file
+NUM_ROWS = config.get("num_rows", 7)  # Default to 7 if not specified
+NUM_COLS = config.get("num_cols", 12)  # Default to 12 if not specified
+
+# Calculate SCREEN_WIDTH and SCREEN_HEIGHT dynamically
+SCREEN_WIDTH = NUM_COLS * CELL_SIZE
+SCREEN_HEIGHT = NUM_ROWS * CELL_SIZE
 
 def draw_grid(screen):
     rows = len(MAZE1)

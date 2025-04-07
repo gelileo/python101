@@ -2,7 +2,7 @@
 # This code provides the basic structure for enhancing the maze editor.
 
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE
+from constants import CELL_SIZE
 from colors import WALL_COLOR, UNEXPLORED_COLOR, START_COLOR, END_COLOR
 from mazes import maze_data1
 

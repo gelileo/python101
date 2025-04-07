@@ -2,9 +2,15 @@
 # This code provides the basic structure for visualizing algorithm steps.
 
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE
+from constants import CELL_SIZE
 from colors import WALL_COLOR, PATH_COLOR, START_COLOR, END_COLOR
 from maze_data import MAZE1, START_POSITION, END_POSITION
+
+# Calculate SCREEN_WIDTH and SCREEN_HEIGHT dynamically
+NUM_ROWS = 7  # Replace with actual value or configuration
+NUM_COLS = 12  # Replace with actual value or configuration
+SCREEN_WIDTH = NUM_COLS * CELL_SIZE
+SCREEN_HEIGHT = NUM_ROWS * CELL_SIZE
 
 # Initialize Pygame
 pygame.init()

@@ -6,6 +6,8 @@ This project is a Python-based application that uses Pygame to visualize and int
 1. **Visualize Maze Solving Algorithms**: Demonstrates algorithms like BFS (Breadth-First Search) and DFS (Depth-First Search) to solve mazes.
 2. **Interactive Maze Navigation**: Users can navigate through the maze manually.
 3. **Maze Editor**: Create or modify mazes interactively and save them for later use.
+4. **Save and Load Mazes**: The editor now supports saving and loading mazes as JSON files.
+5. **Reset Button**: Added a reset button to clear the maze in the editor.
 
 ### Key Components
 1. **`main.py`**: The entry point of the project. It provides three modes:
@@ -18,6 +20,7 @@ This project is a Python-based application that uses Pygame to visualize and int
 5. **`maze_data.py`**: Contains the default maze layout and start/end positions.
 6. **`mazes.py`**: Stores additional maze layouts for use in the editor or main program.
 7. **`algorithms/`**: A directory containing various maze-solving algorithms like BFS, DFS, A*, and more.
+8. **`config.json`**: Stores customizable settings like screen dimensions, cell size, and FPS.
 
 ### How to Run
 
@@ -39,6 +42,7 @@ python3 ./main.py --mode interactive
 ### Additional Information
 - **Maze Editor**: Run `editor.py` to create or modify mazes. Use the mouse to toggle cells and export the maze layout.
 - **Algorithms**: The `algorithms/` folder contains implementations of various maze-solving algorithms.
+- **Configuration Management**: A `config.json` file has been added to store customizable settings like screen dimensions, cell size, and FPS.
 
 ### Implementation Details
 
@@ -67,3 +71,15 @@ This file provides a graphical interface for creating and editing mazes. Users c
 - **`handle_mouse_click`**: Toggles cell states or triggers maze export on button click.
 - **`redraw_maze`**: Updates the screen with the current maze state, button, and highlights.
 - **`main`**: Parses command-line arguments to determine whether to start with a new maze, then initializes the Pygame environment and runs the editor.
+
+### New Features
+- **Save and Load Mazes**: The editor now supports saving and loading mazes as JSON files.
+- **Reset Button**: Added a reset button to clear the maze in the editor.
+
+### How to Use
+#### Save and Load Mazes
+- To save a maze, click the "Export" button in the editor.
+- To load a maze, ensure the `maze.json` file exists and restart the editor.
+
+#### Reset Maze
+- Click the "Reset" button in the editor to clear the maze and start fresh.

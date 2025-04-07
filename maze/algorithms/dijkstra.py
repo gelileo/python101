@@ -19,6 +19,18 @@ def dijkstra(
              - order_visited is the list of cells in the order they were expanded.
              - path is the final path from start to goal (inclusive). If no path is found,
                path will be an empty list.
+
+    The algorithm uses the following components:
+    - Priority Queue:
+      A heap (via heapq) is used to always expand the node with the lowest accumulated cost first.
+    - Costs Dictionary:
+      Keeps track of the best (lowest) cost to reach each cell.
+    - Parent Dictionary:
+      Used for path reconstruction once the goal is reached.
+    - Order of Visited Cells:
+      The list order_visited is appended each time a cell is expanded. This is useful for visualizing the search process.
+    - Loop Termination:
+      Once the goal cell is popped from the priority queue, the algorithm reconstructs the final path and returns it along with the order of expansion. If no path is found, an empty path is returned.
     """
     rows = len(maze)
     cols = len(maze[0])
@@ -74,15 +86,3 @@ def dijkstra(
 
     # If no path is found, return the order of visited nodes and an empty path.
     return order_visited, []
-
-
-# 	Priority Queue:
-# We use a heap (via heapq) to always expand the node with the lowest accumulated cost first.
-# 	•	Costs Dictionary:
-# This keeps track of the best (lowest) cost to reach each cell.
-# 	•	Parent Dictionary:
-# Used for path reconstruction once the goal is reached.
-# 	•	Order of Visited Cells:
-# The list order_visited is appended each time a cell is expanded. This is useful for visualizing the search process.
-# 	•	Loop Termination:
-# Once the goal cell is popped from the priority queue, the algorithm reconstructs the final path and returns it along with the order of expansion. If no path is found, an empty path is returned.
